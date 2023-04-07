@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-from CndbToolsDouglas import cndbTools
+from /home/white.do/DiPierroLab_Douglas/Hi-C/CndbToolsDouglas import cndbTools
 import numpy
 import datetime
 now = datetime.datetime.now()

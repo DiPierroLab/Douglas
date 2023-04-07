@@ -8,7 +8,7 @@ collapse_n_blocks = 500
 #========================================
 import datetime
 import sys
-sys.path.append('/home/white.do')
+sys.path.append('/home/white.do/DiPierroLab_Douglas/simulations')
 from ChromDynamicsDouglasCompareAilun import MiChroM
 from OpenMiChroM.CndbTools import cndbTools
 #===========================================

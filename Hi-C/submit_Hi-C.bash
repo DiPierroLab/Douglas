@@ -8,4 +8,4 @@ source ~/miniconda3/etc/profile.d/conda.sh
 
 conda activate simulation
 
-python ~/Hi-C_double.py
+python /home/white.do/DiPierroLab_Douglas/Hi-C/Hi-C_double.py

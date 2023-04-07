@@ -11,4 +11,4 @@ source ~/miniconda3/etc/profile.d/conda.sh
 
 conda activate simulation
 
-python ~/cndb_frame_grabber_1.py
+python /home/white.do/DiPierroLab_Douglas/conversion_cndb_to_pdb/cndb_frame_grabber_1.py
