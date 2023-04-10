@@ -15,6 +15,7 @@ We seek to sample the canonical ensemble for two interacting polymer chains with
      Convert the output .txt file to .hic file. Open the .hic file in juicebox to render the Hi-C map as a .pdf file.
 
 Optional
+
 5. Visualize a simulation in VMD. 
      First, convert binary .cndb files into .pdb files.
      Next, open one .pdb file for each chain as a new molecule in VMD.
