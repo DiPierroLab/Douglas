@@ -410,13 +410,13 @@ class MiChroM:
         spherForce.addGlobalParameter("GROScut", 2.**(1./6.))
         
         return r
-
-#===============================================
+#=============================================
     def addTransRepulsions(self, kfb=30.0):
 
         R"""
             Adds repulsive forces in trans between corresponding beads in two 2500 bead chains.
             Also adds repulsive forces in trans between beads shifted by one in two 2500 bead chains.
+            Has not been generalized   
         Args:
             
             kfb (float, required):
@@ -425,19 +425,22 @@ class MiChroM:
 
         for j in range(0, 2499):
             self.addTransRepulsion(j, j + 2501, kfb=kfb)
+            self.bondsForException.append((j, j + 2501))
         for j in range(0, 2500):
             self.addTransRepulsion(j, j + 2500, kfb=kfb)
+            self.bondsForException.append((j, j + 2500))
         for j in range(1, 2500):
             self.addTransRepulsion(j, j + 2499, kfb=kfb)
+            self.bondsForException.append((j, j + 1))
         self.metadata["TransRepulsion"] = repr({"kfb": kfb})
 
     def _initTransRepulsion(self, kfb=30):
         R"""
-        Internal function that inits TransRepulsion force.
+        Internal function that inits TransHardcore bond force.
         """
         if "TransRepulsion" not in list(self.forceDict.keys()):
             force = ("4 * e * ((s/r)^12 - 1) * step(s - r)")
-            THB = self.mm.CustomNonbondedForce(force)
+            THBforce = self.mm.CustomBondForce(force)
             THBforce.addGlobalParameter("kfb", kfb)
             THBforce.addGlobalParameter('e', 1.0)
             THBforce.addGlobalParameter('s', 1.0)
@@ -447,7 +450,7 @@ class MiChroM:
     def addTransRepulsion(self, i, j, distance=None, kfb=30):
 
         R"""
-        Adds TransRepulsion force between loci :math:`i` and :math:`j` 
+        Adds bonds between loci :math:`i` and :math:`j` 
 
         Args:
 
@@ -465,7 +468,7 @@ class MiChroM:
         distance = float(distance)
 
         self._initTransRepulsion(kfb=kfb)
-        self.forceDict["TransRepulsion"] = self.mm.CustomNonbondedForce(trans_repul_energy)
+        self.forceDict["TransRepulsion"].addBond(int(i), int(j), [])
 #====================================        
     def addFENEBonds(self, kfb=30.0):
         
