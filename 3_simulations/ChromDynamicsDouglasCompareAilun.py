@@ -1749,7 +1749,7 @@ class MiChroM:
             if num is None:
                 num = steps // 5 + 1
             a = time.time()
-            for _ in range(steps // num):
+            for i in range(steps // num):
                 if self.verbose:
                     print("performing integration")
                 self.integrator.step(num)  # integrate!
@@ -1942,7 +1942,7 @@ class MiChroM:
         Prints some statistical information of a system.
         """
         state = self.context.getState(getPositions=True,
-            getVelocities=True, getEnergy=True)
+            getVelocities=True, getEnergy=True, getForces=True)
 
         eP = state.getPotentialEnergy()
         pos = np.array(state.getPositions() / (units.meter * 1e-9))
@@ -1963,6 +1963,9 @@ class MiChroM:
         den5 = (0.05 * self.N) / ((4. * np.pi * per5 ** 3) / 3)
         x, y, z = pos[:, 0], pos[:, 1], pos[:, 2]
         minmedmax = lambda x: (x.min(), np.median(x), x.mean(), x.max())
+
+        TransRepulsionForce = [f for i, f in enumerate(state.getForces()) if self.system.getForce(i).__class__.__name__ == 'TransRepulsion']
+        print('TransRepulsion force: {}'.format(TransRepulsionForce))
 
         print()
         print("Statistics for the simulation %s, number of particles: %d, "        " number of chains: %d" % (
