@@ -1936,13 +1936,27 @@ class MiChroM:
         toRet = alldata - mults * boxsize[None, :]
         assert toRet.min() >= 0
         return toRet
+
+    # Define the getTransRepulsionForces so I can print it out.
+    def getTransRepulsionForces(self):
+        forces = []
+        for i in range(len(self.positions)):
+            force = 0
+            for j in range(len(self.positions)):
+                if i != j:
+                    r = self.positions[i] - self.positions[j]
+                    rmag = np.linalg.norm(r)
+                    rhat = r / rmag
+                    force += 1 / rmag**12 * rhat
+            forces.append(force)
+        return forces
         
     def printStats(self):
         R"""
         Prints some statistical information of a system.
         """
         state = self.context.getState(getPositions=True,
-            getVelocities=True, getEnergy=True, getForces=True)
+            getVelocities=True, getEnergy=True)
 
         eP = state.getPotentialEnergy()
         pos = np.array(state.getPositions() / (units.meter * 1e-9))
@@ -1964,8 +1978,13 @@ class MiChroM:
         x, y, z = pos[:, 0], pos[:, 1], pos[:, 2]
         minmedmax = lambda x: (x.min(), np.median(x), x.mean(), x.max())
 
-        TransRepulsionForce = [f for i, f in enumerate(state.getForces()) if self.system.getForce(i).__class__.__name__ == 'TransRepulsion']
-        print('TransRepulsion force: {}'.format(TransRepulsionForce))
+        #forces = self.simulation.context.getState(getForces=True).getForces()
+        #custom_bond_forces = [f for f in forces if isinstance(f, mm.CustomBondForce)]
+        #trans_repulsion = [f for f in custom_bond_forces if f.__class__.__name__ == 'CustomBondForce' and f.getName() == 'TransRepulsion']
+        print(f'TransRepulsion force: {trans_repulsion[0].getEnergy()}')
+
+        #TransRepulsionForce = [f for i, f in enumerate(state.getForces()) if self.system.getForce(i).__class__.__name__ == 'TransRepulsion']
+        #print('TransRepulsion force: {}'.format(TransRepulsionForce))
 
         print()
         print("Statistics for the simulation %s, number of particles: %d, "        " number of chains: %d" % (
