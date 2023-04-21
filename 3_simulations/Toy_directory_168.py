@@ -84,7 +84,7 @@ sim.initStorage('traj', mode='w')
 
 print("Let the chromosomes settle into each other...")
 for _ in range(10000):
-    sim.runSimBlock(stepsPerBlock,increment=False)
+    sim.runSimBlock(collapse_stepsPerBlock,increment=False)
 #------------------------------------------------------------------
 # I create a new simulation (called sim2) for each pair (i,j) of loci at each timestep t .
 # To each simulation, I use only the structure at timestep t of the main simulation (called sim).
@@ -105,7 +105,7 @@ for t in range(n_blocks):
             print('t i j r TransRepulsionEnergy(r) =',t,i,j,r_tij,TRenergy_tij)
             del sim2
         else:
-            print('r_tij not within 0.8 and 1.2')
+            print('r_tij =',r_tij)
     #still need to copy the above code twice and edit the values that i and j will hold
     sim.runSimBlock(stepsPerBlock,increment=True)
     sim.saveStructure()
