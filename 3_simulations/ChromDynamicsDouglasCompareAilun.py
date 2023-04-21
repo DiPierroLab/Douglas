@@ -410,8 +410,8 @@ class MiChroM:
         spherForce.addGlobalParameter("GROScut", 2.**(1./6.))
         
         return r
-#=============================================
-    def addTransRepulsions(self, kfb=30.0):
+#==================================================
+    def addTransRepulsions(self, k=30.0):
 
         R"""
             Adds repulsive forces in trans between corresponding beads in two 2500 bead chains.
@@ -419,42 +419,47 @@ class MiChroM:
             Has not been generalized   
         Args:
             
-            kfb (float, required):
+            k (float, required):
                 Bond coefficient. (Default value = 30.0).
           """
-
+        self._initTransRepulsion(k=k) 
         for j in range(0, 2499):
-            self.addTransRepulsion(j, j + 2501, kfb=kfb)
+            self.addTransRepulsion(j, j + 2501, k=k)
             self.bondsForException.append((j, j + 2501))
         for j in range(0, 2500):
-            self.addTransRepulsion(j, j + 2500, kfb=kfb)
+            self.addTransRepulsion(j, j + 2500, k=k)
             self.bondsForException.append((j, j + 2500))
         for j in range(1, 2500):
-            self.addTransRepulsion(j, j + 2499, kfb=kfb)
+            self.addTransRepulsion(j, j + 2499, k=k)
             self.bondsForException.append((j, j + 1))
-        self.metadata["TransRepulsion"] = repr({"kfb": kfb})
+        self.metadata["TransRepulsion"] = repr({"k": k})
 
-    def _initTransRepulsion(self, kfb=30):
+    def _initTransRepulsion(self, k=30):
         R"""
         Internal function that inits TransHardcore bond force.
         """
         if "TransRepulsion" not in list(self.forceDict.keys()):
             force = ("4 * e * ((s/r)^12 - 1) * step(s - r)")
-            THBforce = self.mm.CustomBondForce(force)
-            THBforce.addGlobalParameter("kfb", kfb)
-            THBforce.addGlobalParameter('e', 1.0)
-            THBforce.addGlobalParameter('s', 1.0)
+            #THBforce = self.mm.CustomBondForce(force)
+            #THBforce.addGlobalParameter("kfb", kfb)
+            #THBforce.addGlobalParameter('e', 1.0)
+            #THBforce.addGlobalParameter('s', 1.0)
+            #self.forceDict["TransRepulsion"] = THBforce
 
-            self.forceDict["TransRepulsion"] = THBforce
+            self.THBforce = self.mm.CustomBondForce(force)
+            self.THBforce.addGlobalParameter("k", k)
+            self.THBforce.addGlobalParameter('e', 1.0)
+            self.THBforce.addGlobalParameter('s', 1.0)
+            self.forceDict["TransRepulsion"] = self.THBforce
 
-    def addTransRepulsion(self, i, j, distance=None, kfb=30):
+    def addTransRepulsion(self, i, j, distance=None, k=30):
 
         R"""
         Adds bonds between loci :math:`i` and :math:`j` 
 
         Args:
 
-            kfb (float, required):
+            k (float, required):
                 Bond coefficient. (Default value = 30.0).
             i (int, required):
                 Locus index **i**.
@@ -467,7 +472,7 @@ class MiChroM:
             distance = self.length_scale * distance
         distance = float(distance)
 
-        self._initTransRepulsion(kfb=kfb)
+        self._initTransRepulsion(k=k)
         self.forceDict["TransRepulsion"].addBond(int(i), int(j), [])
 #====================================        
     def addFENEBonds(self, kfb=30.0):
@@ -1937,20 +1942,6 @@ class MiChroM:
         assert toRet.min() >= 0
         return toRet
 
-    # Define the getTransRepulsionForces so I can print it out.
-    def getTransRepulsionForces(self):
-        forces = []
-        for i in range(len(self.positions)):
-            force = 0
-            for j in range(len(self.positions)):
-                if i != j:
-                    r = self.positions[i] - self.positions[j]
-                    rmag = np.linalg.norm(r)
-                    rhat = r / rmag
-                    force += 1 / rmag**12 * rhat
-            forces.append(force)
-        return forces
-        
     def printStats(self):
         R"""
         Prints some statistical information of a system.
@@ -1977,14 +1968,6 @@ class MiChroM:
         den5 = (0.05 * self.N) / ((4. * np.pi * per5 ** 3) / 3)
         x, y, z = pos[:, 0], pos[:, 1], pos[:, 2]
         minmedmax = lambda x: (x.min(), np.median(x), x.mean(), x.max())
-
-        #forces = self.simulation.context.getState(getForces=True).getForces()
-        #custom_bond_forces = [f for f in forces if isinstance(f, mm.CustomBondForce)]
-        #trans_repulsion = [f for f in custom_bond_forces if f.__class__.__name__ == 'CustomBondForce' and f.getName() == 'TransRepulsion']
-        print(f'TransRepulsion force: {trans_repulsion[0].getEnergy()}')
-
-        #TransRepulsionForce = [f for i, f in enumerate(state.getForces()) if self.system.getForce(i).__class__.__name__ == 'TransRepulsion']
-        #print('TransRepulsion force: {}'.format(TransRepulsionForce))
 
         print()
         print("Statistics for the simulation %s, number of particles: %d, "        " number of chains: %d" % (
@@ -2019,7 +2002,16 @@ class MiChroM:
         print("     Number of exceptions:  ", len(self.bondsForException))
         print()
         print("Potential Energy Ep = ", eP / self.N / units.kilojoule_per_mole)
-        
+
+    def printPairwiseEnergies(self):
+        positions = self.getPositions()
+        for i in range(self.N):
+            for j in range(i+1, self.N):
+                r = np.linalg.norm(positions[i] - positions[j])
+                if True:#0.8 < r < 1.2:
+                    energy = 666 #self.forceDict['TransRepulsion'].getEnergyFunction().getEnergy([i,j])#This line has a problem
+                    print('(r,f(r)), i,j=',r,energy,i+str(" "),j)
+
     def printForces(self):
         R"""
         Prints the energy values for each force applied in the system.

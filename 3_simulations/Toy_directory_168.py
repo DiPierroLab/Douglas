@@ -2,9 +2,9 @@ lambdas_file_name = "lambdas167"#you should have three .txt files in dense forma
 #segment_index is changed by a different script into the simulation number in order to reference the correct lambdas matrix.
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1 #steps per block (standard is 1000)
-n_blocks = 300 #number of blocks (standard is 30000)
-collapse_stepsPerBlock = 1
-collapse_n_blocks = 5
+n_blocks = 33 #number of blocks (standard is 30000)
+collapse_stepsPerBlock = 1000
+collapse_n_blocks = 10
 #========================================
 import datetime
 import sys
@@ -12,6 +12,7 @@ sys.path.append('/home/white.do/DiPierroLab_Douglas/3_simulations')
 from ChromDynamicsDouglasCompareAilun import MiChroM
 from OpenMiChroM.CndbTools import cndbTools
 import openmm as mm
+import numpy as np
 #===========================================
 startTime = datetime.datetime.now()
 print("start time:")
@@ -76,20 +77,36 @@ sim.addFlatBottomHarmonic(n_rad=20)
 #adding MiChroM energy with a lambdas matrix
 sim.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/secret/lambdas/'+lambdas_file_name+'.txt')
 #adding 12th power repulsion to prevent corresponding beads from overlapping in trans
-sim.addTransRepulsions(kfb=30.0)
+sim.addTransRepulsions(k=30.0)
 #================================================================
 #setup complete
 sim.initStorage('traj', mode='w')
 
-dir(sim)
-
 print("Let the chromosomes settle into each other...")
-for _ in range(collapse_n_blocks):
+for _ in range(10000):
     sim.runSimBlock(stepsPerBlock,increment=False)
 #------------------------------------------------------------------
-for _ in range(n_blocks):
-    TRFs = sim.getTransRepulsionForces()
-    print("TransRepulsion forces:", TRFs)
+# I create a new simulation (called sim2) for each pair (i,j) of loci at each timestep t .
+# To each simulation, I use only the structure at timestep t of the main simulation (called sim).
+# The only force that I add to it is the TransRepulsion force between i and j.
+# Note: sim2 does not evolve in time. 
+
+for t in range(n_blocks):
+    sim.saveStructure(filename = 'structure'+str(t), mode = 'ndb') #save ndb for use in the extra loops
+    positions = sim.getPositions()#These won't change until the next time evolution, so it I pulled this out of the i and j loops for efficiency.
+    for i in range(0,2499): #extra loop 1
+        j = i + 2501 # we don't need to loop over j because the number of bead pairs which interact with TransRepulsion has order n
+        r_tij = np.linalg.norm(positions[i] - positions[j])
+        if 0.8 < r_tij < 1.2:
+            sim2 = MiChroM() #create a new sim for use in pairwise energy calculation
+            sim2.loadStructure('structure'+str(t)+'.ndb') #load NDB file written at current timestep
+            sim2.addTransRepulsion(i,j,k=30) #add only one force between one pair of beads to sim2
+            TRenergy_tij = sim2.context.getState.getPotentialEnergy()
+            print('t i j r TransRepulsionEnergy(r) =',t,i,j,r_tij,TRenergy_tij)
+            del sim2
+        else:
+            print('r_tij not within 0.8 and 1.2')
+    #still need to copy the above code twice and edit the values that i and j will hold
     sim.runSimBlock(stepsPerBlock,increment=True)
     sim.saveStructure()
 
