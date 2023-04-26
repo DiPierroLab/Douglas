@@ -1,4 +1,4 @@
-lambdas_file_name = "lambdassegment_index"#you should have three .txt files in dense format in the lambdas folder; 
+lambdas_file_name = "lambdas167"#you should have three .txt files in dense format in the lambdas folder; 
 #segment_index is changed by a different script into the simulation number in order to reference the correct lambdas matrix.
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1000 #steps per block (standard is 1000)
@@ -74,8 +74,10 @@ sim.addRepulsiveSoftCore(Ecut=4.0)
 sim.addFlatBottomHarmonic(n_rad=20)
 #adding MiChroM energy with a lambdas matrix
 sim.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/secret/lambdas/'+lambdas_file_name+'.txt')
+#adding another lambdas-type interaction to prevent corresponding beads from overlapping in trans
+sim.addLambdas(mu=4,rc=0.5,LambdasArray='/work/dipierrolab/secret/lambdas/lambdas175.txt')
 #adding 12th power repulsion to prevent corresponding beads from overlapping in trans
-sim.addTransRepulsions(k=30.0)
+#sim.addTransRepulsions(k=30.0)
 #================================================================
 #setup complete
 sim.initStorage('traj', mode='w')

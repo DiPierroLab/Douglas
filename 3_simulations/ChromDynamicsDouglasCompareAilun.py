@@ -439,18 +439,18 @@ class MiChroM:
         Internal function that inits TransHardcore bond force.
         """
         if "TransRepulsion" not in list(self.forceDict.keys()):
-            force = ("4 * e * ((s/r)^12 - 1) * step(s - r)")
-            #THBforce = self.mm.CustomBondForce(force)
-            #THBforce.addGlobalParameter("kfb", kfb)
-            #THBforce.addGlobalParameter('e', 1.0)
-            #THBforce.addGlobalParameter('s', 1.0)
-            #self.forceDict["TransRepulsion"] = THBforce
+            force = "4 * e * (s/r)^12"#"4 * e * ((s/r)^12 - 1) * step(s - r)"
+            THBforce = self.mm.CustomBondForce(force)
+            THBforce.addGlobalParameter("k", k)
+            THBforce.addGlobalParameter('e', 1.0)
+            THBforce.addGlobalParameter('s', 1.0)
+            self.forceDict["TransRepulsion"] = THBforce
 
-            self.THBforce = self.mm.CustomBondForce(force)
-            self.THBforce.addGlobalParameter("k", k)
-            self.THBforce.addGlobalParameter('e', 1.0)
-            self.THBforce.addGlobalParameter('s', 1.0)
-            self.forceDict["TransRepulsion"] = self.THBforce
+            #self.THBforce = self.mm.CustomBondForce(force)
+            #self.THBforce.addGlobalParameter("k", k)
+            #self.THBforce.addGlobalParameter('e', 1.0)
+            #self.THBforce.addGlobalParameter('s', 1.0)
+            #self.forceDict["TransRepulsion"] = self.THBforce
 
     def addTransRepulsion(self, i, j, distance=None, k=30):
 
@@ -511,7 +511,7 @@ class MiChroM:
             bondforceGr.addGlobalParameter("cut", 2.**(1./6.))
                 
             self.forceDict["FENEBond"] = bondforceGr
-        
+            
     def addBond(self, i, j, distance=None, kfb=30):
         
         R"""
