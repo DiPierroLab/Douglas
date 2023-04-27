@@ -8,4 +8,4 @@ source ~/miniconda3/etc/profile.d/conda.sh
 
 conda activate simulation
 
-python /home/white.do/DiPierroLab_Douglas/Hi-C/Hi-C_adder.py
+python /home/white.do/DiPierroLab_Douglas/4_Hi-C/Hi-C_adder.py
