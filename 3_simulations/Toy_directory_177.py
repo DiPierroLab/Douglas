@@ -1,10 +1,11 @@
-lambdas_file_name = "lambdas167"#you should have three .txt files in dense format in the lambdas folder; 
+lambdas_file_name = "lambdas160"#you should have three .txt files in dense format in the lambdas folder; 
 #segment_index is changed by a different script into the simulation number in order to reference the correct lambdas matrix.
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1000 #steps per block (standard is 1000)
-n_blocks = 3000 #number of blocks (standard is 30000)
+n_blocks = 30000 #number of blocks (standard is 30000)
 collapse_stepsPerBlock = 1000
-collapse_n_blocks = 50
+collapse_n_blocks = 500
+Ecut = 4.0 #parameter for the force which repels beads from each other when they get close
 #========================================
 import datetime
 import sys
@@ -24,7 +25,7 @@ sim_chr_copy1.loadStructure(Chrom10_copy1, center=True)
 
 sim_chr_copy1.addFENEBonds(kfb=30.0)
 sim_chr_copy1.addAngles(ka=2.0)
-sim_chr_copy1.addRepulsiveSoftCore(Ecut=4.0)
+sim_chr_copy1.addRepulsiveSoftCore(Ecut=Ecut)
 sim_chr_copy1.addFlatBottomHarmonic()
 
 #adding MiChroM energy with a lambdas matrix
@@ -46,7 +47,7 @@ sim_chr_copy2.loadStructure(Chrom10_copy2, center=True)
 
 sim_chr_copy2.addFENEBonds(kfb=30.0)
 sim_chr_copy2.addAngles(ka=2.0)
-sim_chr_copy2.addRepulsiveSoftCore(Ecut=4.0)
+sim_chr_copy2.addRepulsiveSoftCore(Ecut=Ecut)
 sim_chr_copy2.addFlatBottomHarmonic()
 
 #adding MiChroM energy with a lambdas matrix
@@ -70,14 +71,10 @@ sim.saveStructure(mode='ndb')
 #Homopolymer Potentials
 sim.addFENEBonds(kfb=30.0)
 sim.addAngles(ka=2.0)
-sim.addRepulsiveSoftCore(Ecut=4.0)
+sim.addRepulsiveSoftCore(Ecut=Ecut)
 sim.addFlatBottomHarmonic(n_rad=20)
 #adding MiChroM energy with a lambdas matrix
-sim.addLambdas(name = 'Lambdas', mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/secret/lambdas/'+lambdas_file_name+'.txt')
-#adding another lambdas-type interaction to prevent corresponding beads from overlapping in trans
-sim.addLambdas2(name = 'LambdasTransRepulsion' ,mu=4,rc=0.5,Lambdas2Array='/work/dipierrolab/secret/lambdas/lambdas176.txt')
-#adding 12th power repulsion to prevent corresponding beads from overlapping in trans
-#sim.addTransRepulsions(k=30.0)
+sim.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/secret/lambdas/'+lambdas_file_name+'.txt')
 #================================================================
 #setup complete
 sim.initStorage('traj', mode='w')

@@ -1,8 +1,8 @@
 cd /scratch/white.do/Pairing/
 
-for j in `seq 174 176`
+for j in `seq 177 180`
 do 
-for i in `seq 1 8`
+for i in `seq 1 8` 
 do
 mkdir -p directory_$j
 cd directory_$j

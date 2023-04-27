@@ -75,7 +75,7 @@ sim.addFlatBottomHarmonic(n_rad=20)
 #adding MiChroM energy with a lambdas matrix
 sim.addLambdas(name = 'Lambdas', mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/secret/lambdas/'+lambdas_file_name+'.txt')
 #adding another lambdas-type interaction to prevent corresponding beads from overlapping in trans
-sim.addLambdas2(name = 'LambdasTransRepulsion' ,mu=4,rc=0.5,Lambdas2Array='/work/dipierrolab/secret/lambdas/lambdas176.txt')
+sim.addLambdas(name = 'LambdasTransRepulsion', mu=4, rc=0.5, LambdasArray='/work/dipierrolab/secret/lambdas/lambdas174.txt')
 #adding 12th power repulsion to prevent corresponding beads from overlapping in trans
 #sim.addTransRepulsions(k=30.0)
 #================================================================

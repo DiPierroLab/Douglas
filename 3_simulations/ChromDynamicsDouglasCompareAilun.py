@@ -750,7 +750,7 @@ class MiChroM:
             crossLP_lambdas.addParticle(value)
 
         self.forceDict[name] = crossLP_lambdas        
-#====================================================================================================================        
+#=========================================================================================================
     def addLoops(self, mu=3.22, rc = 1.78, X=-1.612990, looplists=None):
         R"""
         Adds the Loops interactions according to the MiChroM energy function parameters reported in "Di Pierro, M., Zhang, B., Aiden, E.L., Wolynes, P.G. and Onuchic, J.N., 2016. Transferable model for chromosome architecture. Proceedings of the National Academy of Sciences, 113(43), pp.12168-12173". 
