@@ -19,7 +19,7 @@ print(str(startTime))
 sim = MiChroM(name="chr_chr", temperature=1.0, time_step=dt)
 sim.setup(platform="opencl")
 sim.saveFolder('./')
-Struc = sim.loadNDB(NDBfiles=['./chr_copy1_0_block0.ndb','./chr_copy2_0_block0.ndb'])
+Struc = sim.loadNDB(NDBfiles=['./chr_chr_0_block300.ndb','./chr_chr_1_block300.ndb'])
 Struc = sim.setFibPosition(Struc, dist=(1.5,3.0))
 sim.loadStructure(Struc, center=True)
 sim.saveStructure(mode='ndb')
@@ -48,6 +48,7 @@ sim.storage[0].close() #close the cndb file for chr_copy1
 sim.storage[1].close() #close the cndb file for chr_copy2
 
 sim.saveStructure(mode="ndb")
+sim.saveStructure(mode="pdb")
 #==========================================
 endTime = datetime.datetime.now()
 print("start time:")
