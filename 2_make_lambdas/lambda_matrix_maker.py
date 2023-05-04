@@ -12,7 +12,7 @@ loop = input("loop? (True or False)")
 link = input("link? (True or False)")
 
 #============Chromatin=Types===============
-seqPath = "/Users/douglas/Documents/Features Transfer/store sequences/"#path to the sequences of chromatin type and pairing type
+seqPath = "../1_make_sequences/"#"/Users/douglas/Documents/Features Transfer/store sequences/"#path to the sequences of chromatin type and pairing type
 seq_paternal_string = loadtxt(seqPath + "chr_"+pat_type_sequence+"_2500_beads.txt",str)#array of strings encoding chromatin types for the paternal sequence of beads
 seq_maternal_string = loadtxt(seqPath + "chr_"+mat_type_sequence+"_2500_beads.txt",str)#array of strings encoding chromatin types for the maternal sequence of beads
 if seq_paternal_string.shape[0] == seq_maternal_string.shape[0]:
