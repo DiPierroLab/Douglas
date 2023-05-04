@@ -2,9 +2,7 @@ lambdas_file_name = "lambdas167"#segment_index"#you should have three .txt files
 #segment_index is changed by a different script into the simulation number in order to reference the correct lambdas matrix.
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1000 #steps per block (standard is 1000)
-n_blocks = 30000 #number of blocks (standard is 30000)
-collapse_stepsPerBlock = 1000
-collapse_n_blocks = 500
+n_blocks = 3000 #number of blocks (standard is 30000)
 #========================================
 import datetime
 import sys
@@ -19,7 +17,7 @@ print(str(startTime))
 sim = MiChroM(name="chr_chr", temperature=1.0, time_step=dt)
 sim.setup(platform="opencl")
 sim.saveFolder('./')
-Struc = sim.loadNDB(NDBfiles=['/home/white.do/DiPierroLab_Douglas/3_simulations/chr_chr_0_good.ndb','~/home/white.do/DiPierroLab_Douglas/3_simulations/chr_chr_1_good.ndb'])
+Struc = sim.loadNDB(NDBfiles=['/home/white.do/DiPierroLab_Douglas/3_simulations/chr_chr_0_good.ndb','/home/white.do/DiPierroLab_Douglas/3_simulations/chr_chr_1_good.ndb'])
 Struc = sim.setFibPosition(Struc, dist=(1.5,3.0))
 sim.loadStructure(Struc, center=True)
 sim.saveStructure(mode='ndb')
@@ -31,15 +29,10 @@ sim.addFlatBottomHarmonic(n_rad=20)
 #adding MiChroM energy with a lambdas matrix
 sim.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/secret/lambdas/'+lambdas_file_name+'.txt')
 #adding 12th power repulsion to prevent corresponding beads from overlapping in trans
-sim.addTransRepulsions(k=30.0)
+#sim.addTransRepulsions(k=30.0)
 #================================================================
 #setup complete
 sim.initStorage('traj', mode='w')
-
-print("Let the chromosomes settle into each other...")
-for _ in range(collapse_n_blocks):
-    sim.runSimBlock(stepsPerBlock,increment=False)
-#------------------------------------------------------------------
 for _ in range(n_blocks):
     sim.runSimBlock(stepsPerBlock,increment=True)
     sim.saveStructure()

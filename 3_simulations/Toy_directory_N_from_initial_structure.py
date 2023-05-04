@@ -3,8 +3,6 @@ lambdas_file_name = "lambdas167"#segment_index"#you should have three .txt files
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1000 #steps per block (standard is 1000)
 n_blocks = 30000 #number of blocks (standard is 30000)
-collapse_stepsPerBlock = 1000
-collapse_n_blocks = 500
 #========================================
 import datetime
 import sys
@@ -35,11 +33,6 @@ sim.addTransRepulsions(k=30.0)
 #================================================================
 #setup complete
 sim.initStorage('traj', mode='w')
-
-print("Let the chromosomes settle into each other...")
-for _ in range(collapse_n_blocks):
-    sim.runSimBlock(stepsPerBlock,increment=False)
-#------------------------------------------------------------------
 for _ in range(n_blocks):
     sim.runSimBlock(stepsPerBlock,increment=True)
     sim.saveStructure()
