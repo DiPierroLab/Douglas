@@ -1,0 +1,1 @@
+copy_trajectories.bash makes submission scripts and bash scripts that mv trajectories from the templates copy_trajectories_directory_N.bash and submit_copy_trajectories_directory_N.bash into long term storage.
