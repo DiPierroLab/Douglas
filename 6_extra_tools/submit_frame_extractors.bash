@@ -3,6 +3,7 @@
 #SBATCH	--partition=short
 #SBATCH --time=24:00:00
 #SBATCH --job-name=frame_extractor
+#SBATCH -o frame_extractors.out
 
 source ~/miniconda3/etc/profile.d/conda.sh
 

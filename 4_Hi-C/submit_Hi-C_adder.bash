@@ -3,6 +3,7 @@
 #SBATCH	--partition=short
 #SBATCH --time=24:00:00
 #SBATCH --job-name=HiC_adder
+#SBATCH -o Hi-C_adder.out
 
 source ~/miniconda3/etc/profile.d/conda.sh
 

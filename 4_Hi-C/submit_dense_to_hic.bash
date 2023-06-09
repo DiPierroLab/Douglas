@@ -4,6 +4,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --job-name=dense_to_hic
 #SBATCH --mem=50Gb
+#SBATCH -o dense_to_Hi-C.out 
 
 mkdir -p directory_segment_index
 cd directory_segment_index

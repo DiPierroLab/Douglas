@@ -3,6 +3,7 @@
 #SBATCH	--partition=short
 #SBATCH --time=24:00:00
 #SBATCH --job-name=last_frame_1
+#SBATCH -o conversion_1_last_frame.out
 
 source ~/miniconda3/etc/profile.d/conda.sh
 

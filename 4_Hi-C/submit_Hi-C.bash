@@ -3,6 +3,7 @@
 #SBATCH	--partition=short
 #SBATCH --time=24:00:00
 #SBATCH --job-name=HiC
+#SBATCH -o Hi-C.out
 
 source ~/miniconda3/etc/profile.d/conda.sh
 

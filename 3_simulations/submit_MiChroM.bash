@@ -5,6 +5,7 @@
 #SBATCH --job-name=MiChroM
 #SBATCH --mem=100Gb
 #SBATCH --gres=gpu:1
+#SBATCH -o MiChroM_sim.out 
 
 source ~/miniconda3/etc/profile.d/conda.sh
 

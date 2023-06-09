@@ -4,6 +4,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --job-name=cndb_frame_grabber
 #SBATCH --mem=128Gb
+#SBATCH -o cndb_frame_grabber_0.out
 
 cd /scratch/white.do/Pairing/directory_158/part_2
 
