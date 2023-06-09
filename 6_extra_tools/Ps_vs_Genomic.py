@@ -1,7 +1,7 @@
 from hicTools import *
 
-path = "/work/dipierrolab/secret/final_Hi-C_maps/"
-path2 = "/work/dipierrolab/secret/lambdas/"
+path = "/work/dipierrolab/douglas/final_Hi-C_maps/"
+path2 = "/work/dipierrolab/douglas/lambdas/"
 directory_number = 69
 filename = "Hi-C_directory_"+str(directory_number)+".txt"
 typesP = "AAAA"

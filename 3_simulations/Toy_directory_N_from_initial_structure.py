@@ -27,7 +27,7 @@ sim.addAngles(ka=2.0)
 sim.addRepulsiveSoftCore(Ecut=4.0)
 sim.addFlatBottomHarmonic(n_rad=20)
 #adding MiChroM energy with a lambdas matrix
-sim.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/secret/lambdas/'+lambdas_file_name+'.txt')
+sim.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'.txt')
 #adding 12th power repulsion to prevent corresponding beads from overlapping in trans
 sim.addTransRepulsions(k=30.0)
 #================================================================
