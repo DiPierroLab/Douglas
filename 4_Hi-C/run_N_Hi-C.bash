@@ -1,4 +1,4 @@
-for i in 199 200
+for i in 4 8
 
 do
 
