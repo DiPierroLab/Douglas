@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 path = "/work/dipierrolab/douglas/final_Hi-C_maps/"
-for i in range(1,10):#directory
+for i in range(1,12):#directory
     HiC_Matrices = []
     number_of_matrices = 0
     for j in range(1,33):#part
