@@ -4,7 +4,7 @@ from matplotlib.pyplot import imshow, show, colorbar, savefig, title
 
 # User inputs
 directory_number = input("directory number = ")
-pat_type_sequence = input("paternal type sequence = ")# AAAA, AABA, ABAB, or AABB
+pat_type_sequence = input("paternal type sequence = ")# AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size
 mat_type_sequence = input("maternal type sequence = ")
 pairing_type_sequence_name = input("pairing type sequence = ")# TTTTT, TTLTT, NNNNN, TTNTT, NNLNN
 trans_IC_strength = 1.0 #float(input('trans_IC_strength = ')) # This number is multiplied by the trans IC before adding it to Lambda.
