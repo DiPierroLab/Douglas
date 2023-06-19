@@ -1,4 +1,4 @@
-for i in 9 11
+for i in 6
 
 do
 
