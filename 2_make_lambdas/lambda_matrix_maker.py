@@ -4,8 +4,10 @@ from matplotlib.pyplot import imshow, show, colorbar, savefig, title
 
 # User inputs
 directory_number = input("directory number = ")
-pat_type_sequence = input("paternal type sequence = ")# AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size
-mat_type_sequence = input("maternal type sequence = ")
+print('Available chromatin type sequences:')
+print(' AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2')
+pat_type_sequence = input("paternal chromatin type sequence = ")# AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2
+mat_type_sequence = input("maternal chromatin type sequence = ")
 pairing_type_sequence_name = input("pairing type sequence = ")# TTTTT, TTLTT, NNNNN, TTNTT, NNLNN
 trans_IC_strength = 1.0 #float(input('trans_IC_strength = ')) # This number is multiplied by the trans IC before adding it to Lambda.
 loop = input("loop? (True or False)")
@@ -133,7 +135,7 @@ if link == "True":
             Lambda[j,N+i] += loop_strength # the matrix needs to be symmetric otherwise Ailun's and my chromosome dynamics module will complain
 
 #=======================================
-# Make the lambdas matrix from formulas.
+# Make the lambdas matrix from formulas. This method is not the most efficient, but it is arguably more human readable. Since this is definitely not the computational bottleneck, we take liberty.
 delta_function = eye(3) # used to toggle which pairing types add to various indices
 
 # cis paternal; i.e. top left

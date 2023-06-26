@@ -1,6 +1,6 @@
 N = 2500 #number of beads in corresponding chromosome
 
-path = "/Users/douglas/Documents/Features Transfer/sequences/store sequences/"
+path = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"
 file_name = "chr_AAAA_"+str(N)+"_beads"
 
 file = open(path+file_name+".txt","w")
