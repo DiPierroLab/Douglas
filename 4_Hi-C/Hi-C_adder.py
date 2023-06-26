@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 path = "/work/dipierrolab/douglas/final_Hi-C_maps/"
-for i in {10,6,7}:#range(8,12):#directory
+for i in range(1,12):#directory
     HiC_Matrices = []
     number_of_matrices = 0
     for j in range(1,33):#part
@@ -13,5 +13,6 @@ for i in {10,6,7}:#range(8,12):#directory
     HiC_Total = sum(HiC_Matrices)/number_of_matrices
     numpy.savetxt(path+"Hi-C_directory_"+str(i)+".txt",HiC_Total)
     plt.matshow(HiC_Total, norm=mpl.colors.LogNorm(vmin=0.00003, vmax=1.0),cmap="Reds")
+    plt.title('directory_'+str(i))
     plt.colorbar()
     plt.savefig(path+"Hi-C_directory_"+str(i)+".png")
