@@ -20,7 +20,7 @@ print(str(startTime))
 sim_chr_copy1 = MiChroM(name="chr_copy1", temperature=1.0, time_step=.01)
 sim_chr_copy1.setup(platform="opencl")
 sim_chr_copy1.saveFolder('./')
-Chrom10_copy1 = sim_chr_copy1.create_springSpiral(ChromSeq='/work/dipierrolab/douglas/lambdas/chr_AAAA_2500_beads.txt')
+Chrom10_copy1 = sim_chr_copy1.create_springSpiral(ChromSeq='/work/dipierrolab/douglas/lambdas/chr_AAAA_2500_beads.txt') # the bead type sequence doesn't affect the dynamics — only the labeling on the cndb, ndb, and pdb files. I changed it for VMD visualization purposes only.
 sim_chr_copy1.loadStructure(Chrom10_copy1, center=True)
 
 sim_chr_copy1.addFENEBonds(kfb=30.0)
@@ -42,7 +42,7 @@ del sim_chr_copy1
 sim_chr_copy2 = MiChroM(name="chr_copy2", temperature=1.0, time_step=0.01)
 sim_chr_copy2.setup(platform="opencl")
 sim_chr_copy2.saveFolder('./')
-Chrom10_copy2 = sim_chr_copy2.create_springSpiral(ChromSeq='/work/dipierrolab/douglas/lambdas/chr_AAAA_2500_beads.txt')
+Chrom10_copy2 = sim_chr_copy2.create_springSpiral(ChromSeq='/work/dipierrolab/douglas/lambdas/chr_AAAA_2500_beads.txt') # the bead type sequence doesn't affect the dynamics — only the labeling on the cndb, ndb, and pdb files. I changed it for VMD visualization purposes only.
 sim_chr_copy2.loadStructure(Chrom10_copy2, center=True)
 
 sim_chr_copy2.addFENEBonds(kfb=30.0)

@@ -1,4 +1,4 @@
-for i in `seq 1 11`
+for i in `seq 12 17`
 
 do
 
