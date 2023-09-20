@@ -1,5 +1,5 @@
 #inputs a multi hi-C map. Outputs its top left quarter square matrix
-def block11(squareMatrixText = "matrix.txt",outputFilename = "matrix11"):#inputs are strings
+def block11(squareMatrixText = "matrix.txt",outputFileName = "matrix11"):#inputs are strings
     from numpy import zeros, loadtxt, savetxt
     M = loadtxt(squareMatrixText)
     N = round(M.shape[0]/2)
@@ -7,10 +7,10 @@ def block11(squareMatrixText = "matrix.txt",outputFilename = "matrix11"):#inputs
     for i in range(N):
         for j in range(N):
             block[i][j] = M[i][j]
-    savetxt(outputFilename+".txt",block)
+    savetxt(outputFileName+".txt",block)
     return block
 
-def block12(squareMatrixText = "matrix.txt",outputFilename = "matrix12"):#inputs are strings
+def block12(squareMatrixText = "matrix.txt",outputFileName = "matrix12"):#inputs are strings
     from numpy import zeros, loadtxt, savetxt
     M = loadtxt(squareMatrixText)
     N = round(M.shape[0]/2)
@@ -18,10 +18,10 @@ def block12(squareMatrixText = "matrix.txt",outputFilename = "matrix12"):#inputs
     for i in range(N):
         for j in range(N):
             block[i][j] = M[i+N][j]
-    savetxt(outputFilename+".txt",block)
+    savetxt(outputFileName+".txt",block)
     return block
 
-def block22(squareMatrixText = "matrix.txt",outputFilename = "matrix22"):#inputs are strings
+def block22(squareMatrixText = "matrix.txt",outputFileName = "matrix22"):#inputs are strings
     from numpy import zeros, loadtxt, savetxt
     M = loadtxt(squareMatrixText)
     N = round(M.shape[0]/2)
@@ -29,12 +29,12 @@ def block22(squareMatrixText = "matrix.txt",outputFilename = "matrix22"):#inputs
     for i in range(N):
         for j in range(N):
             block[i][j] = M[i+N][j+N]
-    savetxt(outputFilename+".txt",block)
+    savetxt(outputFileName+".txt",block)
     return block
 
 #normalizes by dividing each entry by its expected value at its corresponding genomic distance.
 #You can input a matrix that has different maps on the upper and lower triangles and it will still work.
-def observedOverExpected(squareMatrixText = "matrix.txt",outputFilename = "observedOverExpected"):
+def observedOverExpected(squareMatrixText = "matrix.txt",outputFileName = "observedOverExpected"):
     from numpy import zeros, loadtxt, savetxt
     M = loadtxt(squareMatrixText)
     N = M.shape[0]
@@ -48,12 +48,12 @@ def observedOverExpected(squareMatrixText = "matrix.txt",outputFilename = "obser
             average[i][i-d] = avg 
             average[i-d][i] = avg
     obsOverExp = M/average
-    savetxt(outputFilename+".txt",obsOverExp)
+    savetxt(outputFileName+".txt",obsOverExp)
     return obsOverExp
 
 #normalizes by dividing each entry by its expected value at its corresponding genomic distance.
 #You can input a matrix that has different maps on the upper and lower triangles and it will still work.
-def normalize(squareMatrixText = "matrix.txt", outputFilename = "normalized"):
+def normalize(squareMatrixText = "matrix.txt", outputFileName = "normalized"):
     from numpy import zeros, loadtxt, savetxt
     M = loadtxt(squareMatrixText)
     N = M.shape[0]
@@ -64,15 +64,15 @@ def normalize(squareMatrixText = "matrix.txt", outputFilename = "normalized"):
             total += M[i][j]
         for j in range(N):
             M[i][j] /= total
-    savetxt(outputFilename+".txt",M)
+    savetxt(outputFileName+".txt",M)
     return M
 
 #This method does not work when the lowerLeft and upperRight triangles are not from the same Hi-C map.
-def pearson(squareMatrixText = "matrix.txt",outputFilename = "pearsonMatrix"):
+def pearson(squareMatrixText = "matrix.txt",outputFileName = "pearsonMatrix"):
     from numpy import corrcoef, loadtxt, savetxt
     M = loadtxt(squareMatrixText)
     pearson = corrcoef(M)
-    savetxt(outputFilename+".txt",pearson)
+    savetxt(outputFileName+".txt",pearson)
     return pearson
 
 # Takes two square matrices and creates a new one sharing the lower left triangle with the first input and the upper right triangle with the second input. Inputs are expected as numpy arrays
@@ -128,7 +128,7 @@ def makeHistogram(MatrixTxt,outputFileName="HiC",vMin = .001, vMax = 1.0):
     _ = plt.hist(M, bins='auto')
     plt.savefig(outputFileName+".png")
 
-def PvsGenomic(squareMatrixText = "matrix.txt",outputFilename = "PvsGenomic"):
+def PvsGenomic(squareMatrixText = "matrix.txt",outputFileName = "PvsGenomic"):
     from numpy import zeros, loadtxt, savetxt, log
     import matplotlib.pyplot as plt
     M = loadtxt(squareMatrixText)
@@ -141,9 +141,9 @@ def PvsGenomic(squareMatrixText = "matrix.txt",outputFilename = "PvsGenomic"):
         avg = sum_d/(N-d)
         average[d] = avg
     plt.plot(log(average))
-    savetxt(outputFilename+".txt",average)
+    savetxt(outputFileName+".txt",average)
 
-def PAAvsGenomic(squareMatrixText, types1, types2, outputFilename = "PAAvsGenomic"):
+def PAAvsGenomic(squareMatrixText, types1, types2, outputFileName = "PAAvsGenomic"):
     from numpy import zeros, loadtxt, savetxt, log
     import matplotlib.pyplot as plt
     M = loadtxt(squareMatrixText)
@@ -162,9 +162,9 @@ def PAAvsGenomic(squareMatrixText, types1, types2, outputFilename = "PAAvsGenomi
                 avg = sum_d/counter
                 average[d] = avg
     plt.plot(log(average))
-    savetxt(outputFilename+".txt",average)
+    savetxt(outputFileName+".txt",average)
 
-def PBBvsGenomic(squareMatrixText, types1, types2, outputFilename = "PBBvsGenomic"):
+def PBBvsGenomic(squareMatrixText, types1, types2, outputFileName = "PBBvsGenomic"):
     from numpy import zeros, loadtxt, savetxt, log
     import matplotlib.pyplot as plt
     M = loadtxt(squareMatrixText)
@@ -183,9 +183,9 @@ def PBBvsGenomic(squareMatrixText, types1, types2, outputFilename = "PBBvsGenomi
                 avg = sum_d/counter
                 average[d] = avg
     plt.plot(log(average))
-    savetxt(outputFilename+".txt",average)
+    savetxt(outputFileName+".txt",average)
 
-def PABvsGenomic(squareMatrixText, types1, types2, outputFilename = "PABvsGenomic"):
+def PABvsGenomic(squareMatrixText, types1, types2, outputFileName = "PABvsGenomic"):
     from numpy import zeros, loadtxt, savetxt, log
     import matplotlib.pyplot as plt
     M = loadtxt(squareMatrixText)
@@ -204,6 +204,4 @@ def PABvsGenomic(squareMatrixText, types1, types2, outputFilename = "PABvsGenomi
                 avg = sum_d/counter
                 average[d] = avg
     plt.plot(log(average))
-    savetxt(outputFilename+".txt",average)
-
-
+    savetxt(outputFileName+".txt",average)

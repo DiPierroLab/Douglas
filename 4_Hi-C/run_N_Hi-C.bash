@@ -1,4 +1,4 @@
-for i in 12 13 14
+for i in 18 19
 
 do
 
