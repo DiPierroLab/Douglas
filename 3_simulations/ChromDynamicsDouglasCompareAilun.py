@@ -1,3 +1,6 @@
+# Edited from OpenMiChroM version 1.0.3 by Douglas White and Ailun Wang.
+# We modified the addCustomTypes function into the addLambdas function to enable us to read in a lambdas matrix to dictate the dynamics. See the original MiChroM paper for more information.
+
 # Copyright (c) 2020-2022 The Center for Theoretical Biological Physics (CTBP) - Rice University
 # This file is from the Open-MiChroM project, released under the MIT License. 
 

@@ -8,7 +8,6 @@ import datetime
 import sys
 sys.path.append('/home/white.do/DiPierroLab_Douglas/3_simulations')
 from ChromDynamicsDouglasCompareAilun import MiChroM
-from OpenMiChroM.CndbTools import cndbTools
 #===========================================
 startTime = datetime.datetime.now()
 print("start time:")
