@@ -1,0 +1,400 @@
+commit 499d69e514ae1030069d4e1f320f65f257135afd
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Sep 25 13:03:12 2023 -0400
+
+    Prepared files for data availability
+
+commit 1d13cfda9f322244f42698d26166820f583b80e6
+Merge: f245393 6b361f3
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu Sep 21 14:05:07 2023 -0400
+
+    Merge branch 'main' of https://github.com/DiPierroLab/Douglas into main
+    This merge will keep a second copy of my files and make sure that if I edit files on the discovery cluster I won't make a new branch.
+
+commit 6b361f3cbad0304b5ca129c0bf94e27ce113c872
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Thu Sep 21 14:03:51 2023 -0400
+
+    Expand p vs d to make graphs for sims 1, 2, 8, 9, 10, 11, 12, and 13
+
+commit f245393dfe5dfc1a07ab682774f3c3735fcfac9b
+Merge: 22730ed dd189f6
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Wed Sep 20 19:47:43 2023 -0400
+
+    Merge branch 'main' of https://github.com/DiPierroLab/Douglas into main
+    I am trying to sync the p_vs_d commit from my local computer to the discovery cluster file DiPierroLab_Douglas.
+
+commit dd189f6623bee62e5634a66aaf9d56099b6bbdc8
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Wed Sep 20 19:45:29 2023 -0400
+
+    Restore p vs d
+
+commit 22730ed23edad772aab1d1749abc7de38d7da15f
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Wed Sep 20 17:16:15 2023 -0400
+
+    Update Ps_vs_genomic and hicTools
+
+commit 24a1998a6f6e404ab1acec31d46c19cfef5fafa4
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu Sep 14 12:42:55 2023 -0400
+
+    Add comment saying that input bead sequence doesn't affect dynamics in Toy_directory_N.py
+
+commit 574c5484dc973aa56c49b8a55f38b4bae2ee559d
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Tue Sep 5 16:30:34 2023 -0400
+
+    Add AABAA sequence maker
+
+commit 74eb2cdc40825ecf0877f459934db3c05ab590c3
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Mon Jul 17 15:30:16 2023 -0400
+
+    Fixed bugs
+
+commit 3a6bc8e2eda1301b5b41e6b477629389928cb9ad
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Sat Jul 15 13:39:25 2023 -0400
+
+    Update cooler visualization notebook
+
+commit 5e39e74de667343e43f1704acaf4516545a69fb5
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Fri Jul 14 10:15:44 2023 -0400
+
+    Add 1kb viewing parts to cooler Hi-C visualizer jupyter notebook
+
+commit 94b34bbbb0a8544678706c6f83c3640591699d37
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Fri Jul 14 08:49:24 2023 -0400
+
+    Add filler cell to prevent annoying scrolling upon interactive refresh of chr2 trans explorer tool
+
+commit 1711e4d92bba396d8b262bc37f1098e63b67bd49
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Thu Jul 13 18:24:17 2023 -0400
+
+    Add jupyter notebook to visualize PnM Hi-C maps in .cool format
+
+commit 5cf812bad5622bf85a53cb92285ec3435270eb48
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Wed Jul 12 15:10:55 2023 -0400
+
+    Add graph making jupyter notebook for f and gamma for figure 1
+
+commit bccc081edd61fff496fe248c09d158bc01650133
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Mon Jun 26 14:40:12 2023 -0400
+
+    Add random chromatin type sequence makers 1 and 2
+
+commit a2bea045618acf5ad79005eb224e9c948da6929b
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Jun 26 07:32:06 2023 -0400
+
+    Add directory number titles to help organize Hi-C_adder png images
+
+commit fbe2695e6986e1a00a36325b2505986c9dd2b4e9
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Jun 23 10:30:07 2023 -0400
+
+    Replace copy cndb, pdb, and ndb scripts with cp_N_simulation.bash, which is simpler
+
+commit 6e072ff7ebea2d965f393320e0b47b2ea94655f1
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Jun 19 10:43:53 2023 -0400
+
+    added a little bash script so that .out file saves in scratch rather than in /DiPierroLab_Douglas/4_Hi-C
+
+commit b6ffaf9577d70128ddc3c8e7f4e59aabddd5ae10
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Fri Jun 16 20:22:41 2023 -0400
+
+    added some scattered AB pattern makers and a Ps_vs_genomic jupyter notebook (which is still in progress)
+
+commit 78a31c0eddecc08b6ae51488ab4c9590c0337aff
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu Jun 15 12:41:19 2023 -0400
+
+    fixed a path
+
+commit e2e1393bd246a7b80b057b506a472ae8685b0ca4
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Wed Jun 14 14:26:54 2023 -0400
+
+    I added the python script cool_to_hic_gpt.py, which converts Hi-C map data directly from .cool files (Mirny lab) to .hic files (Aiden lab). The The other conversion methods I found online were roundabout.
+
+commit bf3ea8bc7845afd0a7b8e2e47da94b2e08a23010
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Jun 9 15:14:52 2023 -0400
+
+    I renamed secret as douglas and changed paths accordingly.
+
+commit 4f4a97f6b0cc6dfa8f39e3975f6292fcdba0e836
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Jun 9 12:03:42 2023 -0400
+
+    gave output files (formerly called slurmXXX.out) files custom names
+
+commit e59a96faa32e02d259027f441d254fb4a699379a
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Wed Jun 7 14:19:23 2023 -0400
+
+    edited visualize_lambdas.ipynb
+
+commit 0655c666daaf524f61df6d25737f748f842896d4
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Wed May 24 09:48:55 2023 -0400
+
+    fixed trajectory storers; made them into move_cndb and move_pdb files
+
+commit 55484a93387181e0989d1058aed43c3a1b13e7c4
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Tue May 23 19:39:08 2023 -0400
+
+    fixed some paths and little things
+
+commit d65c6946b1ef6a82684ef4f3952126ee31c73309
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Tue May 23 18:57:14 2023 -0400
+
+    made scripts that store trajectories run one storage job per part
+
+commit cb7932aee0a574ad8674445fb652f3a6e705543c
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Tue May 23 14:49:51 2023 -0400
+
+    worked on the scripts which store trajetories
+
+commit bbeb0afee1b847eff4e430a7bb9fc0a4d6137ec4
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Tue May 23 14:27:27 2023 -0400
+
+    made 3 bash scripts in 6_extra_tools that store trajectories.
+
+commit 4c18656b57adeba86e9d39b9d5736909a8be75d8
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Thu May 4 19:30:44 2023 -0400
+
+    erased a comment
+
+commit 98111c3b536d44ee95a2ad21282990f3a5cb3526
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Thu May 4 19:28:39 2023 -0400
+
+    changed path in lambda_matrix_maker.py to ../1_make_sequences/
+
+commit b05f68fa40bfc84a89b1030aa803de8a8f03afcc
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu May 4 19:18:31 2023 -0400
+
+    changed Ecut to 6.5
+
+commit 000fc1cd323a327ee1f3aceab2ee27bfa045baee
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu May 4 07:29:48 2023 -0400
+
+    improved Toy_directory_N_from_initial_structure.py
+
+commit c4b0eed0d9318de9ee690763cd3515809ca8afda
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Wed May 3 17:24:58 2023 -0400
+
+    Made Toy_directory_N_from_initial_structure.py run with ndb files saved in /home/white.do/DiPierroLab_Douglas/3_simulations/
+
+commit ad1ed2a90d9470aae95c0502a3dd4d102cd9588f
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Tue May 2 10:46:34 2023 -0400
+
+    made Toy_directory_N_from_initial_structure.py receive as input two .ndb structures at block 300
+
+commit 807fe0cd7bebf15c1652f8c78aeb17c08bd4aff6
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Tue May 2 10:20:55 2023 -0400
+
+    started making Toy_directory_N_from_initial_structure.py and its auxiliary bash scripts
+
+commit ec9fd4b61feaadfecbfcc7e37a0512fd2c530fa7
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu Apr 27 16:12:32 2023 -0400
+
+    removed unnecessary addLambdas2 (or maybe that was last commit)
+
+commit ac063029f83634f14b7fa4def0335cd563ad4b71
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu Apr 27 15:53:40 2023 -0400
+
+    fixed a few things, made some new tests
+
+commit 7b9d67a4facfc3c67919ce3157a22b2d913156c0
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu Apr 27 13:39:15 2023 -0400
+
+    changed name of sigmoid TransRepulsion when calling addLambdas
+
+commit db4589b215a44efbd07baab3c13838e1c56c19d0
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Wed Apr 26 11:29:50 2023 -0400
+
+    added Toy_directory_171.py to Toy_directory_176.py; fixed paths
+
+commit 7d474b4ad73da8b785f2e5a54ace7b7b9a5c6eb5
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 21 15:44:13 2023 -0400
+
+    edited a couple things with the hack energy printer in Toy_directory_168.py
+
+commit 55b3dd5f3ab9017bf41b0a0572cceb413113f240
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 21 13:50:40 2023 -0400
+
+    Added haxor code to Toy_directory_168.py to print pairwise energies.
+
+commit 5ee05fdaf0888903ac8d9c6e8e0339bcb4cf08dd
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 14 16:25:48 2023 -0400
+
+    another attempt to print TransRepulsion
+
+commit 05792253f00ad38cb60ffe766419b32b9b06dd13
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Thu Apr 13 18:55:54 2023 -0400
+
+    failed print TransRepulsion
+
+commit cd77bed2f6ae8505d275690dd2b65e75ddb482e2
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Wed Apr 12 11:51:31 2023 -0400
+
+    reverted to using bond to make TransRepulsion
+
+commit 61227f6efd53bf5d5f963987d87a1025bb5d14e9
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Tue Apr 11 15:09:50 2023 -0400
+
+    added a cell which makes a 2 color lambdas heat map
+
+commit 124b79f11926074aa0ba99f91db28208208c5713
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Apr 10 18:07:00 2023 -0400
+
+    started changing TransRepulsion to a non-bonded force
+
+commit aed4801141d0def574bffab88fc1f63c8ada1b0d
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Mon Apr 10 15:02:22 2023 -0400
+
+    aesthetic fix
+
+commit 8ef046b91e841d3aa369252348b14684bb8d9eaf
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Mon Apr 10 14:55:19 2023 -0400
+
+    added tools from local machine and updated README.md
+
+commit 8a65c62df5f026d1dac0a550d19a86e4b7aae450
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Apr 10 10:17:17 2023 -0400
+
+    Yep, I think I can push from discovery without a problem.
+
+commit b369a1e5a01ff18b87ede2a3a8d195d9ae020dac
+Merge: 4be73e7 6df3297
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Apr 10 10:12:32 2023 -0400
+
+    Merge branch 'main' of https://github.com/DiPierroLab/Douglas into main
+    Lord have mercy!
+
+commit 4be73e7e38a2446a4ea79bbec866402f085ba4dc
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Apr 10 10:10:50 2023 -0400
+
+    testing that I can push from discovery
+
+commit 6df32973c6db2e6928fbfc0cab162663e6c1a514
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Mon Apr 10 09:59:47 2023 -0400
+
+    moved stuff around, fixed paths, and added .gitignore
+
+commit af0d0f02263840b85205a9236a7b72923076b730
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Mon Apr 10 09:43:48 2023 -0400
+
+    fixing broken git
+
+commit 800781419ae6d532f33a5a415648078ac32395ab
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 7 15:07:23 2023 -0400
+
+    moved things around and updated paths
+
+commit d6d11ccdea0ebdc3e06dd67cc53c4e27db193d9f
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 7 13:37:35 2023 -0400
+
+    added a bunch of scripts for the cluster
+
+commit a0a8ab771524acdd7b30a286753eee9a4e524c4d
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 7 13:26:20 2023 -0400
+
+    another test commit
+
+commit 039dddfa670a5256d43018e004fe20b885031a8f
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 7 13:24:53 2023 -0400
+
+    removed test files and a submodule
+
+commit 597569ad2888d8c7d827d9aa523650e8d3323429
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 7 11:59:06 2023 -0400
+
+    lkjafsdal
+
+commit d4edc4794f7eda9c2097ebccc0db1d9952a8170b
+Author: Douglas White <white.do@northeastern.edu>
+Date:   Fri Apr 7 11:57:16 2023 -0400
+
+    added a ih8github file
+
+commit 06a5a4c822901048a506e495215263a2fdd9a125
+Merge: fd2e150 602e3ff
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Mon Apr 3 18:38:23 2023 -0400
+
+    Merge pull request #1 from DiPierroLab/Douglas-White-patch-1
+    
+    Update README.md
+
+commit 602e3ffed7d8437d051ee5f85c1e2439f239a0ae
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Mon Apr 3 18:37:51 2023 -0400
+
+    Update README.md
+
+commit fd2e1509a70778355dac96c416cff5b26469e32c
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Wed Dec 14 15:46:01 2022 -0500
+
+    add Features Transfer submodule
+
+commit 08a7a9430db5f903df0f1b0cb3fc80a60fe37947
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Wed Dec 14 15:18:57 2022 -0500
+
+    added FeaturesTransfer submodule
+
+commit 8fe9511e17ea4627d0e67d968a3503c2f1ed7c71
+Author: Douglas-White <white.do@northeastern.edu>
+Date:   Wed Dec 14 14:57:15 2022 -0500
+
+    initial commit
+    
+    added a readme file

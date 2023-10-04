@@ -55,7 +55,7 @@ def gamma_cis(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +
     elif d == 1:
         return 0.0
     else:
-        return gamma1/log(d)+gamma2/d+gamma3/d**2
+        return gamma1/log(d)+gamma2/d+gamma3/d**2# + 0.003975329599529971 # The constant addition makes gamma(2500)=0
 
 #===========Pairing=Types======================
 pairing_types_sequence = loadtxt(seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt',str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
@@ -106,11 +106,11 @@ def gamma_trans(d):# This is the same as gamma_cis except when d==0 or d==1.
     gamma2 = -0.351
     gamma3 = -3.727
     if d == 0:
-        return -1.150530851226669#-1.6# I smoothed out the trans IC
+        return -1.150530851226669# + 0.003975329599529971 # I smoothed out the trans IC
     elif d == 1:
-        return -1.150530851226669#-1.5# I smoothed out the trans IC
+        return -1.150530851226669# + 0.003975329599529971 # I smoothed out the trans IC
     else:
-        return gamma1/log(d)+gamma2/d+gamma3/d**2
+        return gamma1/log(d)+gamma2/d+gamma3/d**2# + 0.003975329599529971 # The constant addition makes gamma(2500)=0
 
 #==================Looping====================
 loop_strength = -0.8264462879099161 * 2.0 #The first number -0.8264462879099161 is called the star wars number for historical reasons. 
