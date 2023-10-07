@@ -98,7 +98,8 @@ show()
 print('')
 print("Making matrix")
 
-loose_pairing_strength =  -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.
+loose_pairing_strength = gamma_cis(300) # ideal chromosome at 75kb, which is the genomic distance at which loose and tight pairing have the same probability.
+# (Used to be -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.)
 
 # trans ideal chromosome; this is the model for tight pairing
 def gamma_trans(d):# This is the same as gamma_cis except when d==0 or d==1.
