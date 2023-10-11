@@ -8,7 +8,7 @@ print('Available chromatin type sequences:')
 print(' AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2')
 pat_type_sequence = input("paternal chromatin type sequence = ")# AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2
 mat_type_sequence = input("maternal chromatin type sequence = ")
-pairing_type_sequence_name = input("pairing type sequence = ")# TTTTT, TTLTT, NNNNN, TTNTT, NNLNN
+pairing_type_sequence_name = input("pairing type sequence = ")# TTTTT, TTLTT, NNNNN, TTNTT, NNLNN, TTL92TT, TTL100TT, TTL50TT
 trans_IC_strength = 1.0 #float(input('trans_IC_strength = ')) # This number is multiplied by the trans IC before adding it to Lambda.
 loop = input("loop? (True or False)")
 link = input("link? (True or False)")
@@ -98,7 +98,7 @@ show()
 print('')
 print("Making matrix")
 
-loose_pairing_strength = gamma_cis(300) # ideal chromosome at 75kb, which is the genomic distance at which loose and tight pairing have the same probability.
+loose_pairing_strength = gamma_cis(15) # ideal chromosome at 75kb, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = 5 kb)
 # (Used to be -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.)
 
 # trans ideal chromosome; this is the model for tight pairing
