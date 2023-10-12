@@ -46,13 +46,15 @@ typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760
 
 #===============Lengthwise=Compaction===================
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
-def gamma_cis(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
+def gamma_cis(D): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
+    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    d = (D-1)/stretch_factor+1 # line equation with points (D,d)=(1,1) and (D,d)=(11,2); The shift prevents division by zero error
     gamma1 = -0.030
     gamma2 = -0.351
     gamma3 = -3.727
-    if d == 0:
-        return 0.0 # Nearby beads "shouldn't" affect each other in this way. This doesn't really matter because OpenMM's CustomNonbondedForce doesn't add self-interaction forces between beads.
-    elif d == 1:
+    if D == 0:
+        return 0.0 # Adjacent beads "shouldn't" affect each other in this way. This doesn't really matter because OpenMM's CustomNonbondedForce doesn't add self-interaction forces between beads.
+    elif D == 1:
         return 0.0
     else:
         return gamma1/log(d)+gamma2/d+gamma3/d**2# + 0.003975329599529971 # The constant addition makes gamma(2500)=0
@@ -98,17 +100,20 @@ show()
 print('')
 print("Making matrix")
 
-loose_pairing_strength = gamma_cis(15) # ideal chromosome at 75kb, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = 5 kb)
+kb75 = 150#75kb converted to beads; 75kb, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
+loose_pairing_strength = gamma_cis(kb75)
 # (Used to be -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.)
 
 # trans ideal chromosome; this is the model for tight pairing
-def gamma_trans(d):# This is the same as gamma_cis except when d==0 or d==1.
+def gamma_trans(D):# This is the same as gamma_cis except when d==0 or d==1.
+    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    d = (D-1)/stretch_factor+1 # line equation with points (D,d)=(1,1) and (D,d)=(11,2); The shift prevents division by zero error
     gamma1 = -0.030
     gamma2 = -0.351
     gamma3 = -3.727
-    if d == 0:
+    if D == 0:
         return -1.150530851226669# + 0.003975329599529971 # I smoothed out the trans IC
-    elif d == 1:
+    elif D == 1:
         return -1.150530851226669# + 0.003975329599529971 # I smoothed out the trans IC
     else:
         return gamma1/log(d)+gamma2/d+gamma3/d**2# + 0.003975329599529971 # The constant addition makes gamma(2500)=0
