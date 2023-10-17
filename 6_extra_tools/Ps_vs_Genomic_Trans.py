@@ -15,9 +15,9 @@ for directory_number in {2,9,11,13}: # Make directory numbers consistent with th
     typesM = typesMlist[i]
     i += 1
 
-    block12(path+filename, "scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block")
+    block12(path+filename, "/scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block")
 
-    PvsGenomic("scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt", outputFileName = path3+'transPvsGenomic_directory_'+str(directory_number))
-    PAAvsGenomic("scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt",path2+"chr_"+typesM+"_2500_beads.txt",path2+"chr_"+typesM+"_2500_beads.txt", outputFileName = path3+'transPAAvsGenomic_directory_'+str(directory_number))
-    PBBvsGenomic("scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt",path2+"chr_"+typesM+"_2500_beads.txt",path2+"chr_"+typesM+"_2500_beads.txt", outputFileName = path3+'transPBBvsGenomic_directory_'+str(directory_number))
-    PABvsGenomic("scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt",path2+"chr_"+typesM+"_2500_beads.txt",path2+"chr_"+typesM+"_2500_beads.txt", outputFileName = path3+'transPABvsGenomic_directory_'+str(directory_number))
+    PvsGenomic("/scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt", outputFileName = path3+'transPvsGenomic_directory_'+str(directory_number))
+    PAAvsGenomic("/scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt",path2+"chr_"+typesM+"_2500_beads.txt",path2+"chr_"+typesM+"_2500_beads.txt", outputFileName = path3+'transPAAvsGenomic_directory_'+str(directory_number))
+    PBBvsGenomic("/scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt",path2+"chr_"+typesM+"_2500_beads.txt",path2+"chr_"+typesM+"_2500_beads.txt", outputFileName = path3+'transPBBvsGenomic_directory_'+str(directory_number))
+    PABvsGenomic("/scratch/white.do/Pairing/Hi-C_directory"+str(directory_number)+"_block.txt",path2+"chr_"+typesM+"_2500_beads.txt",path2+"chr_"+typesM+"_2500_beads.txt", outputFileName = path3+'transPABvsGenomic_directory_'+str(directory_number))
