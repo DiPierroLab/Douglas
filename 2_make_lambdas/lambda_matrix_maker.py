@@ -46,19 +46,20 @@ typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760
 
 #===============Lengthwise=Compaction===================
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
-def gamma_cis(D): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
+def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
-    squashing_factor = 4 # Prevent NAN errors without adjusting timestep. The stretched ideal chromosome has too high of an energy too far away from the diagonal to be fixed by the strengthened soft core repulsion
-    d = (D-1)/stretch_factor+1 # line equation with points (D,d)=(1,1) and (D,d)=(11,2); The shift prevents division by zero error
+    squashing_factor = 1.0 # Prevent NAN errors without adjusting timestep. 
+    #The stretched ideal chromosome has too high of an energy to be fixed by the strengthened soft core repulsion
+    d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_new)=(2,2) and (D,d)=(11,2); The shift prevents a division by zero error
     gamma1 = -0.030/squashing_factor
     gamma2 = -0.351/squashing_factor
     gamma3 = -3.727/squashing_factor
-    if D == 0:
-        return 0.0 # Adjacent beads "shouldn't" affect each other in this way. This doesn't really matter because OpenMM's CustomNonbondedForce doesn't add self-interaction forces between beads.
-    elif D == 1:
+    if d_new == 0:
+        return 0.0 # Adjacent beads "shouldn't" affect each other in this way.
+    elif d_new == 1:
         return 0.0
     else:
-        return gamma1/log(d)+gamma2/d+gamma3/d**2# + 0.003975329599529971 # The constant addition makes gamma(2500)=0
+        return gamma1/log(d_old)+gamma2/d_old+gamma3/d_old**2
 
 #===========Pairing=Types======================
 pairing_types_sequence = loadtxt(seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt',str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
