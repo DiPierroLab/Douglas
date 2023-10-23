@@ -45,19 +45,38 @@ typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760
                     [-0.225646,-0.245080,-0.209919,-0.282536,-0.349490,-0.349490,-0.255994]])#NA = 6
 
 #===============Lengthwise=Compaction===================
+# original untouched ideal chromosome
+def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
+    gamma1 = -0.030
+    gamma2 = -0.351
+    gamma3 = -3.727
+    return gamma1/log(d)+gamma2/d+gamma3/d**2
+
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
 def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
     d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
-    gamma1 = -0.030
-    gamma2 = -0.351
-    gamma3 = -3.727
     if d_new == 0:
         return 0.0 # Adjacent beads "shouldn't" affect each other in this way.
     elif d_new == 1:
         return 0.0
     else:
-        return gamma1/log(d_old)+gamma2/d_old+gamma3/d_old**2
+        return gamma(d_old)
+    
+kb50 = 100#75kb converted to beads; 50kb, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
+loose_pairing_strength = gamma_cis(kb50)
+# (Used to be -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.)
+
+# trans ideal chromosome; this is the model for tight pairing
+def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
+    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
+    if d_new == 0:
+        return -1.150530851226669
+    elif d_new == 1:
+        return -1.150530851226669
+    else:
+        return gamma(d_old)
 
 #===========Pairing=Types======================
 pairing_types_sequence = loadtxt(seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt',str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
@@ -99,24 +118,6 @@ show()
 
 print('')
 print("Making matrix")
-
-kb50 = 100#75kb converted to beads; 50kb, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
-loose_pairing_strength = gamma_cis(kb50)
-# (Used to be -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.)
-
-# trans ideal chromosome; this is the model for tight pairing
-def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
-    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
-    d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
-    gamma1 = -0.030
-    gamma2 = -0.351
-    gamma3 = -3.727
-    if d_new == 0:
-        return -1.150530851226669
-    elif d_new == 1:
-        return -1.150530851226669
-    else:
-        return gamma1/log(d_old)+gamma2/d_old+gamma3/d_old**2
 
 #==================Looping====================
 loop_strength = -0.8264462879099161 * 2.0 #The first number -0.8264462879099161 is called the star wars number for historical reasons. 
