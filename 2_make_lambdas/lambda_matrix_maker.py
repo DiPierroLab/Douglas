@@ -56,16 +56,16 @@ def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\fra
 
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
 def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
-    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    stretch_factor = 0.1# scale factor to stretch the ideal chromosome
     #introduce the following linear function to prevent a division by zero error and represent a bead with
     #21
-    d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) and (d_new,d_old)=(2+stretching_factor,3)
-    if d_new < 2:
-        return 0.0 # Adjacent beads "shouldn't" affect each other in this way.
+    #d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) and (d_new,d_old)=(2+stretching_factor,3)
+    #if d_new < 2:
+    #    return 0.0 # Adjacent beads "shouldn't" affect each other in this way.
     #22
-    #d_old = d_new/stretch_factor 
-    #if d_new < 2*stretch_factor:
-    #    return gamma(2)
+    d_old = d_new/stretch_factor 
+    if d_new < 2*stretch_factor:
+        return gamma(10)
     #both cases
     else:
         return gamma(d_old)
@@ -76,15 +76,15 @@ loose_pairing_strength = gamma_cis(kb50)
 
 # trans ideal chromosome; this is the model for tight pairing
 def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
-    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    stretch_factor = 0.1# scale factor to stretch the ideal chromosome
     #21
-    d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
-    if d_new < 2:
-        return gamma(2) # 1/d blows up at 0 and 1/log(d) blows up at 1.
+    #d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
+    #if d_new < 2:
+    #    return gamma(2) # 1/d blows up at 0 and 1/log(d) blows up at 1.
     #22
-    #d_old = d_new/stretch_factor 
-    #if d_new < 2*stretch_factor:
-    #    return gamma(2)
+    d_old = d_new/stretch_factor 
+    if d_new < 2*stretch_factor:
+        return gamma(10)
     #both cases
     else:
         return gamma(d_old)
