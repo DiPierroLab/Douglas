@@ -45,18 +45,22 @@ typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760
                     [-0.225646,-0.245080,-0.209919,-0.282536,-0.349490,-0.349490,-0.255994]])#NA = 6
 
 #===============Lengthwise=Compaction===================
-# original untouched ideal chromosome
+# original untouched ideal chromosome; to be used in making the altered version below
 def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
+    squash_factor = 8
     gamma1 = -0.030
     gamma2 = -0.351
     gamma3 = -3.727
-    return gamma1/log(d)+gamma2/d+gamma3/d**2
+    value = gamma1/log(d)+gamma2/d+gamma3/d**2
+    return value/squash_factor
 
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
 def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
-    d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
-    if d_new == 0:
+    #introduce the following linear function to prevent a division by zero error and represent a bead with
+    #21
+    d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) and (d_new,d_old)=(2+stretching_factor,3)
+    if d_new < 2:
         return 0.0 # Adjacent beads "shouldn't" affect each other in this way.
     #22
     #d_old = d_new/stretch_factor 
@@ -66,18 +70,22 @@ def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{
     else:
         return gamma(d_old)
     
-kb50 = 100#75kb converted to beads; 50kb, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
+kb50 = 100 #50kb converted to beads, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
 loose_pairing_strength = gamma_cis(kb50)
 # (Used to be -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.)
 
 # trans ideal chromosome; this is the model for tight pairing
 def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    #21
     d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
-    if d_new == 0:
-        return -1.150530851226669
-    elif d_new == 1:
-        return -1.150530851226669
+    if d_new < 2:
+        return gamma(2) # 1/d blows up at 0 and 1/log(d) blows up at 1.
+    #22
+    #d_old = d_new/stretch_factor 
+    #if d_new < 2*stretch_factor:
+    #    return gamma(2)
+    #both cases
     else:
         return gamma(d_old)
 
