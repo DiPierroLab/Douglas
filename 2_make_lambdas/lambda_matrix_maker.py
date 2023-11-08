@@ -67,19 +67,12 @@ def gamma_trans_old(d):
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
 def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
-    squash_factor = 5.0
-    #introduce the following linear function to prevent a division by zero error and represent a bead with
-    #21
-    #d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) and (d_new,d_old)=(2+stretching_factor,3)
-    #if d_new < 2:
-    #    return 0.0 # Adjacent beads shouldn't affect each other in this way.
-    #22
     d_old = d_new/stretch_factor 
     if d_new < 2*stretch_factor:
         return 0.0
     #both cases
     else:
-        return gamma(d_old)/squash_factor
+        return gamma(d_old)
     
 kb50 = 100 #50kb converted to beads, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
 loose_pairing_strength = gamma_cis(kb50)
@@ -88,18 +81,12 @@ loose_pairing_strength = gamma_cis(kb50)
 # trans ideal chromosome; this is the model for tight pairing
 def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
-    squash_factor = 5.0
-    #21
-    #d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
-    #if d_new < 2:
-    #    return gamma(2) # 1/d blows up at 0 and 1/log(d) blows up at 1.
-    #22
     d_old = d_new/stretch_factor 
     if d_new < 2*stretch_factor:
         return gamma(2*stretch_factor)
     #both cases
     else:
-        return gamma(d_old)/squash_factor
+        return gamma(d_old)
 
 #===========Pairing=Types======================
 pairing_types_sequence = loadtxt(seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt',str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
@@ -194,6 +181,14 @@ for i in range(N):
         Lambda[i+N,j+N] += gamma_cis(abs(i-j))# ideal chromosome
         Lambda[i+N,j+N] += typeToType[seq_maternal[i],seq_maternal[j]]# chromatin type
 
+# Just in case self interactions are a problem, make them zero
+for i in range(5000):
+    Lambda[i,i] = 0.0
+    
+# By Monday
+#truncate ideal chromosome after 500 beads
+squash_factor = 1.0#tweak to make the p vs d computational and experimental lines overlap
+Lambda = Lambda/squash_factor
 #======================================
 # Save and display the lambdas matrix.
 savePath = "/Users/douglas/Documents/Features Transfer/store lambdas/"
@@ -202,8 +197,8 @@ savetxt(savePath + "lambdas"+directory_number + "_0.txt",Lambda[0:N,0:N],delimit
 savetxt(savePath + "lambdas"+directory_number + "_1.txt",Lambda[N:N+N,N:N+N],delimiter=',')
 savetxt(savePath + "lambdas"+directory_number + ".txt",Lambda,delimiter=',')
 
-imshow(Lambda,vmin=-.45,vmax =-.26)
-title('directory_'+str(directory_number))
+imshow(Lambda,vmin=-.45/squash_factor,vmax =-.26/squash_factor)
+title('directory_'+str(directory_number)+'   squash_factor = '+str(squash_factor))
 colorbar()
 savefig(savePath+"lambdas"+directory_number+".png",dpi=300)
 show()
