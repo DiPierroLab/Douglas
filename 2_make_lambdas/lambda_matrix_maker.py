@@ -47,28 +47,39 @@ typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760
 #===============Lengthwise=Compaction===================
 # original untouched ideal chromosome; to be used in making the altered version below
 def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
-    squash_factor = 8
     gamma1 = -0.030
     gamma2 = -0.351
     gamma3 = -3.727
-    value = gamma1/log(d)+gamma2/d+gamma3/d**2
-    return value/squash_factor
+    return gamma1/log(d)+gamma2/d+gamma3/d**2
+
+def gamma_cis_old(d):
+    if d < 2:
+        return 0.0
+    else:
+        return gamma(d)
+    
+def gamma_trans_old(d):
+    if d <2:
+        return gamma(2)
+    else:
+        return gamma(d)
 
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
 def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
-    stretch_factor = 0.1# scale factor to stretch the ideal chromosome
+    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    squash_factor = 5.0
     #introduce the following linear function to prevent a division by zero error and represent a bead with
     #21
     #d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) and (d_new,d_old)=(2+stretching_factor,3)
     #if d_new < 2:
-    #    return 0.0 # Adjacent beads "shouldn't" affect each other in this way.
+    #    return 0.0 # Adjacent beads shouldn't affect each other in this way.
     #22
     d_old = d_new/stretch_factor 
     if d_new < 2*stretch_factor:
-        return gamma(10)
+        return 0.0
     #both cases
     else:
-        return gamma(d_old)
+        return gamma(d_old)/squash_factor
     
 kb50 = 100 #50kb converted to beads, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
 loose_pairing_strength = gamma_cis(kb50)
@@ -76,7 +87,8 @@ loose_pairing_strength = gamma_cis(kb50)
 
 # trans ideal chromosome; this is the model for tight pairing
 def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
-    stretch_factor = 0.1# scale factor to stretch the ideal chromosome
+    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
+    squash_factor = 5.0
     #21
     #d_old = (d_new-2)/stretch_factor+2 # line equation with points (d_new,d_old)=(2,2) (prevents a division by zero error) and (d_new,d_old)=(11,2) (makes a bead represent fewer base pairs)
     #if d_new < 2:
@@ -84,10 +96,10 @@ def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
     #22
     d_old = d_new/stretch_factor 
     if d_new < 2*stretch_factor:
-        return gamma(10)
+        return gamma(2*stretch_factor)
     #both cases
     else:
-        return gamma(d_old)
+        return gamma(d_old)/squash_factor
 
 #===========Pairing=Types======================
 pairing_types_sequence = loadtxt(seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt',str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
@@ -168,7 +180,6 @@ for i in range(N):
         Lambda[i,j+N] += delta_function[1,pairing_types_matrix[i,j]] * loose_pairing_strength
         Lambda[i,j+N] += delta_function[2,pairing_types_matrix[i,j]] * trans_IC_strength * gamma_trans(abs(i-j))# tight pairing
         Lambda[i,j+N] += typeToType[seq_paternal[i],seq_maternal[j]]# chromatin type
-
 
 # trans on bottom left
 for i in range(N):
