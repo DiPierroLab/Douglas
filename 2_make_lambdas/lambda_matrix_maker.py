@@ -187,7 +187,7 @@ for i in range(5000):
     
 # By Monday
 #truncate ideal chromosome after 500 beads
-squash_factor = 1.0#tweak to make the p vs d computational and experimental lines overlap
+squash_factor = 6.0#tweak to make the p vs d computational and experimental lines overlap
 Lambda = Lambda/squash_factor
 #======================================
 # Save and display the lambdas matrix.
