@@ -184,11 +184,10 @@ for i in range(N):
 # Just in case self interactions are a problem, make them zero
 for i in range(5000):
     Lambda[i,i] = 0.0
-    
-# By Monday
-#truncate ideal chromosome after 500 beads
-squash_factor = 1.6#tweak to make the p vs d computational and experimental lines overlap
+
+squash_factor = 1.0 # tweak to make the p vs d computational and experimental lines overlap
 Lambda = Lambda/squash_factor
+
 #======================================
 # Save and display the lambdas matrix.
 savePath = "/Users/douglas/Documents/Features Transfer/store lambdas/"
