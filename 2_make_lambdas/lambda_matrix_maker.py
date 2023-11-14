@@ -45,12 +45,15 @@ typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760
                     [-0.225646,-0.245080,-0.209919,-0.282536,-0.349490,-0.349490,-0.255994]])#NA = 6
 
 #===============Lengthwise=Compaction===================
+squash_divisor = 6.0 # Number by which to divide the ideal chromosome (or the whole lambdas matrix)
+
 # original untouched ideal chromosome; to be used in making the altered version below
 def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     gamma1 = -0.030
     gamma2 = -0.351
     gamma3 = -3.727
-    return gamma1/log(d)+gamma2/d+gamma3/d**2
+    output = gamma1/log(d)+gamma2/d+gamma3/d**2
+    return output/squash_divisor
 
 def gamma_cis_old(d):
     if d < 2:
@@ -185,8 +188,7 @@ for i in range(N):
 for i in range(5000):
     Lambda[i,i] = 0.0
 
-squash_factor = 1.0 # tweak to make the p vs d computational and experimental lines overlap
-Lambda = Lambda/squash_factor
+#Lambda = Lambda/squash_divisor
 
 #======================================
 # Save and display the lambdas matrix.
@@ -196,8 +198,8 @@ savetxt(savePath + "lambdas"+directory_number + "_0.txt",Lambda[0:N,0:N],delimit
 savetxt(savePath + "lambdas"+directory_number + "_1.txt",Lambda[N:N+N,N:N+N],delimiter=',')
 savetxt(savePath + "lambdas"+directory_number + ".txt",Lambda,delimiter=',')
 
-imshow(Lambda,vmin=-.45/squash_factor,vmax =-.26/squash_factor)
-title('directory_'+str(directory_number)+'   squash_factor = '+str(squash_factor))
+imshow(Lambda,vmin=-.45/squash_divisor,vmax =-.26/squash_divisor)
+title('directory_'+str(directory_number)+'   squash_divisor = '+str(squash_divisor))
 colorbar()
 savefig(savePath+"lambdas"+directory_number+".png",dpi=300)
 show()
