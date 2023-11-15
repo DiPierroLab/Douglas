@@ -1,8 +1,8 @@
-for i in `seq 18 19`
+for i in 37 38 39 40
 
 do
 
-for j in 1 2
+for j in 1
 do
 cd /scratch/white.do/Pairing/directory_$i/part_$j
 sbatch /home/white.do/DiPierroLab_Douglas/5_conversion_cndb_to_pdb/submit_conversion_0.bash

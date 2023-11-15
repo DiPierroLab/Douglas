@@ -4,11 +4,11 @@ path = '/work/dipierrolab/douglas/final_Hi-C_maps/' # path to Hi-C map .txt stor
 path2 = '/home/white.do/DiPierroLab_Douglas/1_make_sequences/' # path to AB type sequence storage
 path3 = '/work/dipierrolab/douglas/PvsGenomic/' # path in which to store final P vs d txt files
 
-typesPlist = ['AAAA'] # list of sequence names to help reference the correct AB type sequence files
-typesMlist = ['AAAA']
+typesPlist = ['AAAA','AAAA','AAAA','AAAA'] # list of sequence names to help reference the correct AB type sequence files
+typesMlist = ['AAAA','AAAA','AAAA','AAAA']
 
 i = 0 #keeps track of which sequence name to use
-for directory_number in {23}: # Make directory numbers consistent with the sequence name lists above. Otherwise the output is faulty.
+for directory_number in {37,38,39,40}: # Make directory numbers consistent with the sequence name lists above. Otherwise the output is faulty.
     filename = "Hi-C_directory_"+str(directory_number)+".txt"
 
     typesP = typesPlist[i]
