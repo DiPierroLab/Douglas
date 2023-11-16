@@ -2,7 +2,7 @@
 
 # Load packages
 from numpy import array, loadtxt
-from matplotlib.pyplot import plot, show, legend, xlim
+from matplotlib.pyplot import plot, show, legend, xlim, xlabel, xlim, ylabel, ylim
 
 # Path to lambdas matrix storage
 file = '/Users/douglas/Documents/Features Transfer/store lambdas'
@@ -11,13 +11,16 @@ file = '/Users/douglas/Documents/Features Transfer/store lambdas'
 print('Loading matrices')
 #M24 = loadtxt(file+'/Lambdas24.txt', delimiter=',')
 #M25 = loadtxt(file+'/Lambdas25.txt', delimiter=',')
-#M33 = loadtxt(file+'/Lambdas33.txt', delimiter=',')
-M35 = loadtxt(file+'/Lambdas35.txt', delimiter=',')
-M36 = loadtxt(file+'/Lambdas36.txt', delimiter=',')
-M37 = loadtxt(file+'/Lambdas37.txt', delimiter=',')
-M38 = loadtxt(file+'/Lambdas38.txt', delimiter=',')
-M39 = loadtxt(file+'/Lambdas39.txt', delimiter=',')
-M40 = loadtxt(file+'/Lambdas40.txt', delimiter=',')
+#M35 = loadtxt(file+'/Lambdas35.txt', delimiter=',')
+#M36 = loadtxt(file+'/Lambdas36.txt', delimiter=',')
+#M37 = loadtxt(file+'/Lambdas37.txt', delimiter=',')
+#M38 = loadtxt(file+'/Lambdas38.txt', delimiter=',')
+#M39 = loadtxt(file+'/Lambdas39.txt', delimiter=',')
+#M40 = loadtxt(file+'/Lambdas40.txt', delimiter=',')
+M41 = loadtxt(file+'/Lambdas41.txt', delimiter=',')
+M42 = loadtxt(file+'/Lambdas42.txt', delimiter=',')
+M43 = loadtxt(file+'/Lambdas43.txt', delimiter=',')
+M44 = loadtxt(file+'/Lambdas44.txt', delimiter=',')
 print('Matrices loaded')
 print('')
 
@@ -34,25 +37,35 @@ print(d)
 #     If you divided gamma by a number to make the lambdas matrix, then multiply back by it
 #vec24 = M24[0:2500,0]-M24[0,0]
 #vec25 = 5.0*(M25[0:2500,0]-M25[0,1])
-#vec33 = 1.4*(M33[0:2500,0]-M33[0,1])
-vec35 = 1.4*(M35[0:2500,0]-M35[0,1])
-vec36 = 1.4*(M36[0:2500,0]-M36[0,1])
-vec37 = 4.0*(M37[0:2500,0]-M37[0,1])
-vec38 = 4.0*(M38[0:2500,0]-M38[0,1])
-vec39 = 6.0*(M39[0:2500,0]-M39[0,1])
-vec40 = 6.0*(M40[0:2500,0]-M40[0,1])
+#vec35 = 1.4*(M35[0:2500,0]-M35[0,1])
+#vec36 = 1.4*(M36[0:2500,0]-M36[0,1])
+#vec37 = 4.0*(M37[0:2500,0]-M37[0,1])
+#vec38 = 4.0*(M38[0:2500,0]-M38[0,1])
+#vec39 = 6.0*(M39[0:2500,0]-M39[0,1])
+#vec40 = 6.0*(M40[0:2500,0]-M40[0,1])
+vec41 = 6.0*(M41[0:2500,0]-M41[0,1])
+vec42 = 6.0*(M42[0:2500,0]-M42[0,1])
+vec43 = 6.0*(M43[0:2500,0]-M43[0,1])
+vec44 = 6.0*(M44[0:2500,0]-M44[0,1])
 
 
 # Plot the lambdas slices. They should overlap.
 #plot(d*bead_size_old, vec24,'s', label = '24')
 #plot(d*bead_size_new, vec25,'-', label = '25')
-#plot(d*bead_size_new, vec33,'--', label = '33')
-plot(d*bead_size_new, vec35,'-', label = '35')
-plot(d*bead_size_new, vec36,'--', label = '36')
-plot(d*bead_size_new, vec37,'-.', label = '37')
-plot(d*bead_size_new, vec38,':', label = '38')
-plot(d*bead_size_new, vec39,'.', label = '39')
-plot(d*bead_size_new, vec40,'o', label = '40')
-xlim(0,5e4)
+#plot(d*bead_size_new, vec35,'-', label = '35')
+#plot(d*bead_size_new, vec36,'--', label = '36')
+#plot(d*bead_size_new, vec37,'-.', label = '37')
+#plot(d*bead_size_new, vec38,':', label = '38')
+#plot(d*bead_size_new, vec39,'.', label = '39')
+#plot(d*bead_size_new, vec40,'o', label = '40')
+plot(d*bead_size_new, vec41,'-', label = '41')
+plot(d*bead_size_new, vec42,'--', label = '42')
+plot(d*bead_size_new, vec43,'s', label = '43')
+plot(d*bead_size_new, vec44,'o', label = '44')
+xlabel('genomic distance away from the diagonal in base pairs')
+#xscale('log')
+ylabel('gamma')
+#yscale('log')
 legend()
+xlim(0,5e4)
 show()

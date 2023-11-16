@@ -6,12 +6,14 @@ from matplotlib.pyplot import imshow, show, colorbar, savefig, title
 directory_number = input("directory number = ")
 print('Available chromatin type sequences:')
 print(' AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2')
-pat_type_sequence = input("paternal chromatin type sequence = ")# AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2
+pat_type_sequence = input("paternal chromatin type sequence = ") # AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2
 mat_type_sequence = input("maternal chromatin type sequence = ")
-pairing_type_sequence_name = input("pairing type sequence = ")# TTTTT, TTLTT, NNNNN, TTNTT, NNLNN, TTL92TT, TTL100TT, TTL50TT
+pairing_type_sequence_name = input("pairing type sequence = ") # TTTTT, TTLTT, NNNNN, TTNTT, NNLNN, TTL92TT, TTL100TT, TTL50TT
 trans_IC_strength = 1.0 #float(input('trans_IC_strength = ')) # This number is multiplied by the trans IC before adding it to Lambda.
 loop = input("loop? (True or False)")
 link = input("link? (True or False)")
+type_to_type_divisor = float(input('type to type divisor = ')) # Number by which to divide the ideal chromosome (or the whole lambdas matrix)
+ideal_chromosome_divisor = float(input('ideal chromosome divisor = ')) # Number by which to divide the ideal chromosome (or the whole lambdas matrix)
 
 #============Chromatin=Types===============
 seqPath = "../1_make_sequences/"#path to the sequences of chromatin type and pairing type
@@ -35,7 +37,7 @@ for i in range(N):
     if seq_maternal_string[i,1] == "B1":
         seq_maternal[i] = 2
 
-# An array of interaction strengths between different types of bead.
+# An array of interaction strengths between different types of bead. It's the original from the MiChroM paper.
 typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760,-0.225646], #A1 = 0
                     [-0.274604,-0.299261,-0.286952,-0.281154,-0.301320,-0.301320,-0.245080], #A2 = 1
                     [-0.262513,-0.286952,-0.342020,-0.321726,-0.336630,-0.336630,-0.209919], #B1 = 2
@@ -44,16 +46,18 @@ typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760
                     [-0.266760,-0.301320,-0.336630,-0.329350,-0.341230,-0.341230,-0.349490], #B4 = 5
                     [-0.225646,-0.245080,-0.209919,-0.282536,-0.349490,-0.349490,-0.255994]])#NA = 6
 
-#===============Lengthwise=Compaction===================
-squash_divisor = 6.0 # Number by which to divide the ideal chromosome (or the whole lambdas matrix)
+typeToType /= type_to_type_divisor # Divide the strength of type-to-type interactions by a user-defined number.
 
-# original untouched ideal chromosome; to be used in making the altered version below
+#===============Lengthwise=Compaction===================
+
+# original untouched ideal chromosome divided by a user specified number; to be used in making the altered version below
 def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     gamma1 = -0.030
     gamma2 = -0.351
     gamma3 = -3.727
     output = gamma1/log(d)+gamma2/d+gamma3/d**2
-    return output/squash_divisor
+    output /= ideal_chromosome_divisor # Divide the ideal chromosome by a user-defined.
+    return output
 
 def gamma_cis_old(d):
     if d < 2:
@@ -188,8 +192,6 @@ for i in range(N):
 for i in range(5000):
     Lambda[i,i] = 0.0
 
-#Lambda = Lambda/squash_divisor
-
 #======================================
 # Save and display the lambdas matrix.
 savePath = "/Users/douglas/Documents/Features Transfer/store lambdas/"
@@ -197,9 +199,8 @@ savePath = "/Users/douglas/Documents/Features Transfer/store lambdas/"
 savetxt(savePath + "lambdas"+directory_number + "_0.txt",Lambda[0:N,0:N],delimiter=',')# delimiter of ',' makes output into a csv file
 savetxt(savePath + "lambdas"+directory_number + "_1.txt",Lambda[N:N+N,N:N+N],delimiter=',')
 savetxt(savePath + "lambdas"+directory_number + ".txt",Lambda,delimiter=',')
-
-imshow(Lambda,vmin=-.45/squash_divisor,vmax =-.26/squash_divisor)
-title('directory_'+str(directory_number)+'   squash_divisor = '+str(squash_divisor))
+imshow(Lambda,vmin=-.45/type_to_type_divisor,vmax =-.26/type_to_type_divisor)
+title('simulation '+str(directory_number)+'   AA/'+str(type_to_type_divisor)+'   IC/' + str(ideal_chromosome_divisor))
 colorbar()
 savefig(savePath+"lambdas"+directory_number+".png",dpi=300)
 show()
