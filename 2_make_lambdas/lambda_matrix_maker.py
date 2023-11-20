@@ -50,7 +50,7 @@ typeToType /= type_to_type_divisor # Divide the strength of type-to-type interac
 
 #===============Lengthwise=Compaction===================
 
-# original untouched ideal chromosome divided by a user specified number; to be used in making the altered version below
+# original ideal chromosome divided by a user specified number; to be used in making the altered version below
 def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     gamma1 = -0.030
     gamma2 = -0.351
@@ -58,7 +58,7 @@ def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\fra
     output = gamma1/log(d)+gamma2/d+gamma3/d**2
     output /= ideal_chromosome_divisor # Divide the ideal chromosome by a user-defined.
     return output
-
+'''
 def gamma_cis_old(d):
     if d < 2:
         return 0.0
@@ -70,13 +70,13 @@ def gamma_trans_old(d):
         return gamma(2)
     else:
         return gamma(d)
-
+'''
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
 def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
     d_old = d_new/stretch_factor 
     if d_new < 2*stretch_factor:
-        return 0.0
+        return gamma(2)+(gamma(2.1)-gamma(2))*(d_old-2)/(2.1-2)
     #both cases
     else:
         return gamma(d_old)
@@ -90,7 +90,7 @@ def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
     d_old = d_new/stretch_factor 
     if d_new < 2*stretch_factor:
-        return gamma(2*stretch_factor)
+        return gamma(2)+(gamma(2.1)-gamma(2))*(d_old-2)/(2.1-2)
     #both cases
     else:
         return gamma(d_old)
