@@ -71,12 +71,15 @@ def gamma_trans_old(d):
     else:
         return gamma(d)
 '''
+
+cutoff = 10 # Defines region to extrapolate linearly within.
+
 # cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
 def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
     d_old = d_new/stretch_factor 
-    if d_new < 2*stretch_factor:
-        return gamma(2)+(gamma(2.1)-gamma(2))*(d_old-2)/(2.1-2)
+    if d_new < cutoff*stretch_factor:
+        return gamma(cutoff)+(gamma(cutoff+0.1)-gamma(cutoff))*(d_old-cutoff)/0.1
     #both cases
     else:
         return gamma(d_old)
@@ -89,8 +92,8 @@ loose_pairing_strength = gamma_cis(kb50)
 def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
     stretch_factor = 10.0# scale factor to stretch the ideal chromosome
     d_old = d_new/stretch_factor 
-    if d_new < 2*stretch_factor:
-        return gamma(2)+(gamma(2.1)-gamma(2))*(d_old-2)/(2.1-2)
+    if d_new < cutoff*stretch_factor:
+        return gamma(cutoff)+(gamma(cutoff+0.1)-gamma(cutoff))*(d_old-cutoff)/0.1
     #both cases
     else:
         return gamma(d_old)
