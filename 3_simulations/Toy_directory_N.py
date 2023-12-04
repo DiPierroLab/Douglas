@@ -5,7 +5,9 @@ stepsPerBlock = 1000 #steps per block (standard is 1000)
 n_blocks = 30000 #number of blocks (standard is 30000)
 collapse_stepsPerBlock = 1000
 collapse_n_blocks = 500
-Ecut = 6.5
+Ecut = 4.0 # 6.5 was the one we used to prevent corresponding beads from overlapping in trans.
+mu = 1.79 # MiChroM 3.22 NuChroM 1.79 width parameter for the sigmoid f
+rc = 3.43 # MiChroM 1.78 NuChroM 3.43 cutoff parameter for the sigmoid f
 #========================================
 import datetime
 import sys
@@ -28,7 +30,7 @@ sim_chr_copy1.addRepulsiveSoftCore(Ecut=Ecut)
 sim_chr_copy1.addFlatBottomHarmonic()
 
 #adding MiChroM energy with a lambdas matrix
-sim_chr_copy1.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'_0.txt')
+sim_chr_copy1.addLambdas(mu=mu, rc = rc, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'_0.txt')
 
 print("Performing paternal collapse simulation...")
 for _ in range(collapse_n_blocks):
@@ -50,7 +52,7 @@ sim_chr_copy2.addRepulsiveSoftCore(Ecut=Ecut)
 sim_chr_copy2.addFlatBottomHarmonic()
 
 #adding MiChroM energy with a lambdas matrix
-sim_chr_copy2.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'_1.txt')
+sim_chr_copy2.addLambdas(mu=mu, rc = rc, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'_1.txt')
 
 print("Perform maternal collapse simulation...")
 for _ in range(collapse_n_blocks):
@@ -73,7 +75,7 @@ sim.addAngles(ka=2.0)
 sim.addRepulsiveSoftCore(Ecut=Ecut)
 sim.addFlatBottomHarmonic(n_rad=20)
 #adding MiChroM energy with a lambdas matrix
-sim.addLambdas(mu=3.22, rc = 1.78, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'.txt')
+sim.addLambdas(mu=mu, rc = rc, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'.txt')
 #adding 12th power repulsion to prevent corresponding beads from overlapping in trans
 #sim.addTransRepulsions(k=30.0)
 #================================================================
