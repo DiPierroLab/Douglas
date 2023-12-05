@@ -1,4 +1,4 @@
-from numpy import zeros, array, savetxt, loadtxt, eye
+from numpy import zeros, array, savetxt, loadtxt, eye, exp
 from matplotlib.pyplot import imshow, show, colorbar, savefig, title
 
 # User inputs
@@ -43,15 +43,21 @@ typeToType = array([[-0.014816115362874019,0.008490389952188957], # AA,AB
 typeToType /= type_to_type_divisor # Divide the strength of type-to-type interactions by a user-defined number.
 
 #===============Lengthwise=Compaction===================
-
-# NuChroM gamma
+'''
+# NuChroM gamma from file
 gammas = loadtxt('NuChroM_gammas_250bp.txt')
-
-def gamma(d): 
+def gamma(d):
     output = gammas[d]
     output /= ideal_chromosome_divisor # Divide the ideal chromosome by a user-defined.
     return output
-    
+'''
+
+# NuChroM gamma from fit to NuChroM gammas
+def gamma(d): 
+    output = -exp(-d/420)/12-.315-d/300000
+    output /= ideal_chromosome_divisor # Divide the ideal chromosome by a user-defined.
+    return output
+
 kb50 = 200 #50kb converted to beads. 50kb is roughly the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
 loose_pairing_strength = gamma(kb50)
 
