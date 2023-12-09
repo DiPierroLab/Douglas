@@ -6,8 +6,8 @@ n_blocks = 30000 #number of blocks (standard is 30000)
 collapse_stepsPerBlock = 1000
 collapse_n_blocks = 500
 Ecut = 4.0 # 6.5 was the one we used to prevent corresponding beads from overlapping in trans.
-mu = 1.79 # MiChroM 3.22 NuChroM 1.79 width parameter for the sigmoid f
-rc = 3.43 # MiChroM 1.78 NuChroM 3.43 cutoff parameter for the sigmoid f
+mu = 3.22 # MiChroM 3.22 NuChroM 1.79 width parameter for the sigmoid f
+rc = 1.78 # MiChroM 1.78 NuChroM 3.43 cutoff parameter for the sigmoid f
 #========================================
 import datetime
 import sys

@@ -19,7 +19,9 @@ def cndb_to_txt_block(string1, string2):# e.g.  r'./traj_0.cndb'
     last = None # choose None to include all
     xyzs1 = tool.xyz1(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])
     xyzs2 = tool.xyz2(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])
-    output_matrix = tool.traj2HiC12(xyzs1,xyzs2) # Hi-C map in dense matrix form
+    # rc MiChroM 3.22 NuChroM 1.79 width parameter for the sigmoid f
+    # mu MiChroM 1.78 NuChroM 3.43 cutoff parameter for the sigmoid f
+    output_matrix = tool.traj2HiC12(xyzs1, xyzs2, mu=3.22, rc=1.78) # Hi-C map in dense matrix form
     return output_matrix
 
 def cndb_to_txt(*argv,filename = "super_file_name"): # e.g.  r'./traj_0.cndb'
