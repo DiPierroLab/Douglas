@@ -3,6 +3,7 @@ lambdas_file_name = "lambdas167"#segment_index"#you should have three .txt files
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1000 #steps per block (standard is 1000)
 n_blocks = 30000 #number of blocks (standard is 30000)
+initial_block_number = 30000 #number of the initial structure; the number of the previous run's final block
 #========================================
 import datetime
 import sys
@@ -16,9 +17,9 @@ print(str(startTime))
 sim = MiChroM(name="chr_chr", temperature=1.0, time_step=dt)
 sim.setup(platform="opencl")
 sim.saveFolder('./')
-Struc = sim.loadNDB(NDBfiles=['/home/white.do/DiPierroLab_Douglas/3_simulations/chr_chr_0_good.ndb','/home/white.do/DiPierroLab_Douglas/3_simulations/chr_chr_1_good.ndb'])
+Struc = sim.loadNDB(NDBfiles=['/scratch/white.do/Pairing/directory_55/part_1/chr_chr_0_block'+initial_block_number+'.ndb','/scratch/white.do/Pairing/directory_55/part_1/chr_chr_0_block'+initial_block_number+'.ndb'])
 Struc = sim.setFibPosition(Struc, dist=(1.5,3.0))
-sim.loadStructure(Struc, center=True)
+sim.loadStructure(Struc, center=False)
 sim.saveStructure(mode='ndb')
 #Homopolymer Potentials
 sim.addFENEBonds(kfb=30.0)

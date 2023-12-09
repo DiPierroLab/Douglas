@@ -61,6 +61,7 @@ for _ in range(collapse_n_blocks):
 sim_chr_copy2.saveStructure(filename="chr_copy2", mode="ndb")
 del sim_chr_copy2
 #==============================================================
+midTime = datetime.datetime.now()
 
 sim = MiChroM(name="chr_chr", temperature=1.0, time_step=dt)
 sim.setup(platform="opencl")
@@ -86,7 +87,7 @@ print("Let the chromosomes settle into each other...")
 for _ in range(collapse_n_blocks):
     sim.runSimBlock(stepsPerBlock,increment=False)
 #------------------------------------------------------------------
-midTime = datetime.datetime.now()
+
 for _ in range(n_blocks):
     sim.runSimBlock(stepsPerBlock,increment=True)
     sim.saveStructure()
