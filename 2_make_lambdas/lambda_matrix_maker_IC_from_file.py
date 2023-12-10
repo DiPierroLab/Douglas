@@ -1,5 +1,4 @@
-from numpy import zeros, array, savetxt, loadtxt, eye
-from math import log
+from numpy import zeros, array, savetxt, loadtxt, eye, exp
 from matplotlib.pyplot import imshow, show, colorbar, savefig, title
 
 # User inputs
@@ -13,7 +12,6 @@ trans_IC_strength = 1.0 #float(input('trans_IC_strength = ')) # This number is m
 loop = input("loop? (True or False)")
 link = input("link? (True or False)")
 type_to_type_divisor = float(input('type to type divisor = ')) # Number by which to divide the ideal chromosome (or the whole lambdas matrix)
-ideal_chromosome_divisor = float(input('ideal chromosome divisor = ')) # Number by which to divide the ideal chromosome (or the whole lambdas matrix)
 
 #============Chromatin=Types===============
 seqPath = "../1_make_sequences/"#path to the sequences of chromatin type and pairing type
@@ -31,75 +29,28 @@ for i in range(N):
     if seq_paternal_string[i,1] == "A1":
         seq_paternal[i] = 0
     if seq_paternal_string[i,1] == "B1":
-        seq_paternal[i] = 2
+        seq_paternal[i] = 1
     if seq_maternal_string[i,1] == "A1":
         seq_maternal[i] = 0
     if seq_maternal_string[i,1] == "B1":
-        seq_maternal[i] = 2
+        seq_maternal[i] = 1
 
 # An array of interaction strengths between different types of bead. It's the original from the MiChroM paper.
-typeToType = array([[-0.268028,-0.274604,-0.262513,-0.258880,-0.266760,-0.266760,-0.225646], #A1 = 0
-                    [-0.274604,-0.299261,-0.286952,-0.281154,-0.301320,-0.301320,-0.245080], #A2 = 1
-                    [-0.262513,-0.286952,-0.342020,-0.321726,-0.336630,-0.336630,-0.209919], #B1 = 2
-                    [-0.258880,-0.281154,-0.321726,-0.330443,-0.329350,-0.329350,-0.282536], #B2 = 3
-                    [-0.266760,-0.301320,-0.336630,-0.329350,-0.341230,-0.341230,-0.349490], #B3 = 4
-                    [-0.266760,-0.301320,-0.336630,-0.329350,-0.341230,-0.341230,-0.349490], #B4 = 5
-                    [-0.225646,-0.245080,-0.209919,-0.282536,-0.349490,-0.349490,-0.255994]])#NA = 6
+typeToType = array([[-0.268028,-0.262513], # AA,AB
+[-0.262513,-0.342020]]) # BA,BB
 
 typeToType /= type_to_type_divisor # Divide the strength of type-to-type interactions by a user-defined number.
 
 #===============Lengthwise=Compaction===================
 
-# original ideal chromosome divided by a user specified number; to be used in making the altered version below
-def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
-    gamma1 = -0.030
-    gamma2 = -0.351
-    gamma3 = -3.727
-    output = gamma1/log(d)+gamma2/d+gamma3/d**2
-    output /= ideal_chromosome_divisor # Divide the ideal chromosome by a user-defined.
+# NuChroM gamma from file
+gammas = loadtxt('gammas_'+str(directory_number)+'.txt')
+def gamma(d):
+    output = gammas[d]
     return output
-'''
-def gamma_cis_old(d):
-    if d < 2:
-        return 0.0
-    else:
-        return gamma(d)
-    
-def gamma_trans_old(d):
-    if d <2:
-        return gamma(2)
-    else:
-        return gamma(d)
-'''
 
-
-cutoff = 70 # Defines region to extrapolate linearly within.
-
-# cis ideal chromosome; this causes chromatin to have its characteristic power law decay.
-def gamma_cis(d_new): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\frac{\gamma_3}{d^2}
-    stretch_factor = 10.0# scale factor to stretch the ideal chromosome
-    d_old = d_new/stretch_factor
-    if d_new < 40:
-        return 0.0
-    elif d_new < cutoff:
-        return gamma(cutoff/stretch_factor)+(gamma(cutoff/stretch_factor+0.01)-gamma(cutoff/stretch_factor))*(d_old-cutoff/stretch_factor)/0.01
-    else:
-        return gamma(d_old)
-
-kb50 = 100 #50kb converted to beads, which is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
-loose_pairing_strength = gamma_cis(kb50)
-# (Used to be -.32 + 0.268028 #added to  -0.268028, the AA interaction strength, this will end up as -.32, which I used in my original simulations.)
-
-# trans ideal chromosome; this is the model for tight pairing
-def gamma_trans(d_new):# This is the same as gamma_cis except when d==0 or d==1.
-    stretch_factor = 10.0# scale factor to zoom into the ideal chromosome
-    d_old = d_new/stretch_factor 
-    if d_new < 40:
-        return 0.0
-    elif d_new < cutoff:
-        return gamma(cutoff/stretch_factor)+(gamma(cutoff/stretch_factor+0.01)-gamma(cutoff/stretch_factor))*(d_old-cutoff/stretch_factor)/0.01
-    else:
-        return gamma(d_old)
+kb50 = 200 #50kb converted to beads. 50kb is roughly the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
+loose_pairing_strength = gamma(kb50)
 
 #===========Pairing=Types======================
 pairing_types_sequence = loadtxt(seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt',str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
@@ -171,27 +122,27 @@ delta_function = eye(3) # used to toggle which pairing types add to various indi
 # cis paternal; i.e. top left
 for i in range(N):
     for j in range(N):
-        Lambda[i,j] += gamma_cis(abs(i-j))# ideal chromosome
+        Lambda[i,j] += gamma(abs(i-j))# ideal chromosome
         Lambda[i,j] += typeToType[seq_paternal[i],seq_paternal[j]]# chromatin type
 
 # trans on top right
 for i in range(N):
     for j in range(N):
         Lambda[i,j+N] += delta_function[1,pairing_types_matrix[i,j]] * loose_pairing_strength
-        Lambda[i,j+N] += delta_function[2,pairing_types_matrix[i,j]] * trans_IC_strength * gamma_trans(abs(i-j))# tight pairing
+        Lambda[i,j+N] += delta_function[2,pairing_types_matrix[i,j]] * trans_IC_strength * gamma(abs(i-j))# tight pairing
         Lambda[i,j+N] += typeToType[seq_paternal[i],seq_maternal[j]]# chromatin type
 
 # trans on bottom left
 for i in range(N):
     for j in range(N):
         Lambda[i+N,j] += delta_function[1,pairing_types_matrix[i,j]] * loose_pairing_strength
-        Lambda[i+N,j] += delta_function[2,pairing_types_matrix[i,j]] * trans_IC_strength * gamma_trans(abs(i-j))# tight pairing
+        Lambda[i+N,j] += delta_function[2,pairing_types_matrix[i,j]] * trans_IC_strength * gamma(abs(i-j))# tight pairing
         Lambda[i+N,j] += typeToType[seq_maternal[i],seq_paternal[j]]# chromatin type
 
 # cis maternal; i.e. bottom right
 for i in range(N):
     for j in range(N):
-        Lambda[i+N,j+N] += gamma_cis(abs(i-j))# ideal chromosome
+        Lambda[i+N,j+N] += gamma(abs(i-j))# ideal chromosome
         Lambda[i+N,j+N] += typeToType[seq_maternal[i],seq_maternal[j]]# chromatin type
 
 # Just in case self interactions are a problem, make them zero
@@ -206,7 +157,7 @@ savetxt(savePath + "lambdas"+directory_number + "_0.txt",Lambda[0:N,0:N],delimit
 savetxt(savePath + "lambdas"+directory_number + "_1.txt",Lambda[N:N+N,N:N+N],delimiter=',')
 savetxt(savePath + "lambdas"+directory_number + ".txt",Lambda,delimiter=',')
 imshow(Lambda,vmin=-.45/type_to_type_divisor,vmax =-.26/type_to_type_divisor)
-title('simulation '+str(directory_number)+'   AA/'+str(type_to_type_divisor)+'   IC/' + str(ideal_chromosome_divisor))
+title('simulation '+str(directory_number)+'   AA/'+str(type_to_type_divisor))
 colorbar()
 savefig(savePath+"lambdas"+directory_number+".png",dpi=300)
 show()
