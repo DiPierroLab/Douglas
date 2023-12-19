@@ -1,4 +1,4 @@
-for i in 55 56 57 58
+for i in 55
 
 do
 

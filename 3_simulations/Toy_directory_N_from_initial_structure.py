@@ -1,9 +1,8 @@
-lambdas_file_name = "lambdas167"#segment_index"#you should have three .txt files in dense format in the lambdas folder; 
+lambdas_file_name = "lambdassegment_index"#you should have three .txt files in dense format in the lambdas folder; 
 #segment_index is changed by a different script into the simulation number in order to reference the correct lambdas matrix.
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1000 #steps per block (standard is 1000)
-n_blocks = 30000 #number of blocks (standard is 30000)
-initial_block_number = 30000 #number of the initial structure; the number of the previous run's final block
+n_blocks = 75000 #number of blocks (standard is 30000; 80000 can run on a gpu within 8 hours)
 #========================================
 import datetime
 import sys
@@ -17,9 +16,9 @@ print(str(startTime))
 sim = MiChroM(name="chr_chr", temperature=1.0, time_step=dt)
 sim.setup(platform="opencl")
 sim.saveFolder('./')
-Struc = sim.loadNDB(NDBfiles=['/scratch/white.do/Pairing/directory_55/part_1/chr_chr_0_block'+initial_block_number+'.ndb','/scratch/white.do/Pairing/directory_55/part_1/chr_chr_0_block'+initial_block_number+'.ndb'])
-Struc = sim.setFibPosition(Struc, dist=(1.5,3.0))
-sim.loadStructure(Struc, center=False)
+Struc = sim.loadNDB(NDBfiles=['/scratch/white.do/Pairing/directory_55/part_1/chr_chr_0_block'+str(n_blocks)+'.ndb','/scratch/white.do/Pairing/directory_55/part_1/chr_chr_1_block'+str(n_blocks)+'.ndb'])
+#Struc = sim.setFibPosition(Struc, dist=(1.5,3.0))
+sim.loadStructure(Struc, center=True)
 sim.saveStructure(mode='ndb')
 #Homopolymer Potentials
 sim.addFENEBonds(kfb=30.0)
