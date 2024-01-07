@@ -1,0 +1,6 @@
+afsdasdf
+0
+Combining traj_0s
+2
+1
+/var/spool/slurmd/job40212106/slurm_script: line 13: 25442 Killed                  python combine_pdb_0.py
