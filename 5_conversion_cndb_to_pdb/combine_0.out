@@ -1,6 +1,10 @@
-afsdasdf
-0
 Combining traj_0s
-2
-1
-/var/spool/slurmd/job40212106/slurm_script: line 13: 25442 Killed                  python combine_pdb_0.py
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_2.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_3.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_4.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_5.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_6.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_7.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_8.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_9.pdb: '_atom_site.id'
+Error parsing /scratch/white.do/Pairing/directory_55/part_1/traj_0_timespan_10.pdb: '_atom_site.id'

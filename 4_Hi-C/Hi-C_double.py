@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import sys
+import argparse
 sys.path.append('/home/white.do/DiPierroLab_Douglas/4_Hi-C')
 from CndbToolsDouglas import cndbTools
 import numpy
@@ -9,12 +10,22 @@ now = datetime.datetime.now()
 print("Start Hi-C: ")
 print(str(now))
 
-filename = "Hi-C_multi"
+# the argparse stuff allows a user to input arguments when running the program in the shell
+parser = argparse.ArgumentParser()
+parser.add_argument('cndb_file_0_name',metavar='t0', type=str, help='path to cndb trajectory of first molecule')
+parser.add_argument('cndb_file_1_name',metavar='t1', type=str, help='path to cndb trajectory of second molecule')
+parser.add_argument('output_file_name',metavar='o', type=str)
+args = parser.parse_args()
+
+traj_0 = args.cndb_file_0_name # file name for cndb trajectory of first molecule
+traj_1 = args.cndb_file_1_name # file name for cndb trajectory of second molecule
+
+filename = args.output_file_name # name of output file (extension will be .txt)
 
 def cndb_to_txt_block(string1, string2):# e.g.  r'./traj_0.cndb'
     tool = cndbTools()
     tool.load(string1,string2)
-    frameIncrement = 1 # set to 1 if you want all frames
+    frameIncrement = 2 # set to 1 if you want all frames
     first = 10000
     last = None # choose None to include all
     xyzs1 = tool.xyz1(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])
@@ -58,7 +69,7 @@ def cndb_to_txt(*argv,filename = "super_file_name"): # e.g.  r'./traj_0.cndb'
     savefig(filename+".png")
     return output_matrix
 
-cndb_to_txt(r'./traj_0.cndb',r'./traj_1.cndb',filename=filename)#,r'./traj_2.cndb',r'./traj_3.cndb',r'./traj_4.cndb',r'./traj_5.cndb',filename = filename)
+cndb_to_txt(traj_0,traj_1,filename=filename) # traj_0 and traj_1 are defined with argparse arguments above.
 
 now = datetime.datetime.now()
 print("Finish Hi-C: ")
