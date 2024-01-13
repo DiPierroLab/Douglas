@@ -72,10 +72,10 @@ Type_conversion = {'A1':'A1','A2':'A2','B1':'B1','B2':'B2','B3':'B3','B4':'B4','
 
 filename   = arguments.arg_fname
 file_loops = arguments.loops
-res        = np.int(arguments.arg_res)
-chroID     = np.str(arguments.arg_chroID)
-sigma      = np.float(arguments.arg_sigma)
-scale      = np.float(arguments.arg_scale)
+res        = np.int_(arguments.arg_res)
+chroID     = str(arguments.arg_chroID)
+sigma      = float(arguments.arg_sigma)
+scale      = float(arguments.arg_scale)
 
 ndbf       = open(arguments.arg_name+'.ndb', "w+")
 
@@ -127,7 +127,7 @@ for mdl in range(1,totalModel,1):
     
     for i, line in zip(list(range(len(data))), data):    
         ndbf.write(ndb_string.format('CHROM ', i+1, Seqlist[i], " ", "C1", i+1,
-                                    line[0], line[1], line[2], np.int((i) * 50000)+1, np.int(i * 50000+50000), 0)) # Aqui a gente escreve as coordenadas e os campos coloridos
+                                    line[0], line[1], line[2], np.int_((i) * 50000)+1, np.int_(i * 50000+50000), 0)) # Aqui a gente escreve as coordenadas e os campos coloridos
         ndbf.write("\n")
 
 
