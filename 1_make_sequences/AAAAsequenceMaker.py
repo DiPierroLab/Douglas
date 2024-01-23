@@ -1,4 +1,4 @@
-N = 2500 #number of beads in corresponding chromosome
+N = 1350 #number of beads in corresponding chromosome
 
 path = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"
 file_name = "chr_AAAA_"+str(N)+"_beads"

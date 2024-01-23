@@ -5,9 +5,9 @@ from matplotlib.pyplot import imshow, show, colorbar, savefig, title
 directory_number = input("directory number = ")
 print('Available chromatin type sequences:')
 print(' AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2')
-pat_type_sequence = input("paternal chromatin type sequence = ") # AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2
-mat_type_sequence = input("maternal chromatin type sequence = ")
-pairing_type_sequence_name = input("pairing type sequence = ") # TTTTT, TTLTT, NNNNN, TTNTT, NNLNN, TTL92TT, TTL100TT, TTL50TT
+#pat_type_sequence = input("paternal chromatin type sequence = ") # AAAA, AABA, ABAB, AABB, ABAB_different_size_1, ABAB_different_size_2, BABA_different_size, random1, random2
+#mat_type_sequence = input("maternal chromatin type sequence = ")
+#pairing_type_sequence_name = input("pairing type sequence = ") # TTTTT, TTLTT, NNNNN, TTNTT, NNLNN, TTL92TT, TTL100TT, TTL50TT
 trans_IC_strength = 1.0 #float(input('trans_IC_strength = ')) # This number is multiplied by the trans IC before adding it to Lambda.
 loop = input("loop? (True or False)")
 link = input("link? (True or False)")
@@ -15,8 +15,10 @@ type_to_type_divisor = float(input('type to type divisor = ')) # Number by which
 
 #============Chromatin=Types===============
 seqPath = "../1_make_sequences/"#path to the sequences of chromatin type and pairing type
-seq_paternal_string = loadtxt(seqPath + "chr_"+pat_type_sequence+"_2500_beads.txt",str)#array of strings encoding chromatin types for the paternal sequence of beads
-seq_maternal_string = loadtxt(seqPath + "chr_"+mat_type_sequence+"_2500_beads.txt",str)#array of strings encoding chromatin types for the maternal sequence of beads
+pat_type_sequence_path = seqPath + 'chr_AAAA_1350_beads.txt'#"chr_"+pat_type_sequence+"_2500_beads.txt"
+seq_paternal_string = loadtxt(pat_type_sequence_path,str)#array of strings encoding chromatin types for the paternal sequence of beads
+mat_type_sequence_path = seqPath + 'chr_AAAA_1350_beads.txt'#"chr_"+mat_type_sequence+"_2500_beads.txt"
+seq_maternal_string = loadtxt(mat_type_sequence_path,str)#array of strings encoding chromatin types for the maternal sequence of beads
 if seq_paternal_string.shape[0] == seq_maternal_string.shape[0]:
     N = seq_paternal_string.shape[0]
 
@@ -44,7 +46,7 @@ typeToType /= type_to_type_divisor # Divide the strength of type-to-type interac
 #===============Lengthwise=Compaction===================
 
 # NuChroM gamma from file
-gammas = loadtxt('gammas_'+str(directory_number)+'.txt')
+gammas = loadtxt('gammas_'+str(59)+'.txt')
 def gamma(d):
     output = gammas[d]
     return output
@@ -53,7 +55,8 @@ kb50 = 200 #50kb converted to beads. 50kb is roughly the genomic distance at whi
 loose_pairing_strength = gamma(kb50)
 
 #===========Pairing=Types======================
-pairing_types_sequence = loadtxt(seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt',str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
+pairing_type_sequence_path = seqPath + 'chr_chr_TTLTT_small_T.txt'#'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt'
+pairing_types_sequence = loadtxt(pairing_type_sequence_path,str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
 
 pairing_types_matrix = zeros([N,N],int)# Will be made into a matrix of pairing types between loci. M[i,j] = 0 if locus i and locus j don't pair, 1 if they pair loosely, and 2 if they pair tightly.pairing_types_path = '/Users/douglas/Documents/Features Transfer/pairing type matrices/store pairing type matrices/'
 i = 0
@@ -146,7 +149,7 @@ for i in range(N):
         Lambda[i+N,j+N] += typeToType[seq_maternal[i],seq_maternal[j]]# chromatin type
 
 # Just in case self interactions are a problem, make them zero
-for i in range(5000):
+for i in range(2*N):
     Lambda[i,i] = 0.0
 
 #======================================
