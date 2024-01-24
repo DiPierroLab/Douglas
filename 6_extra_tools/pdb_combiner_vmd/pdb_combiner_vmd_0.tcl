@@ -8,5 +8,5 @@ animate read pdb traj_0_timespan_7.pdb skip 10 waitfor all
 animate read pdb traj_0_timespan_8.pdb skip 10 waitfor all
 animate read pdb traj_0_timespan_9.pdb skip 10 waitfor all
 animate read pdb traj_0_timespan_10.pdb skip 10 waitfor all
-animate write pdb vmd_script_combined_pdb.pdb waitfor all
+animate write pdb traj_0_timespans.pdb waitfor all
 exit
