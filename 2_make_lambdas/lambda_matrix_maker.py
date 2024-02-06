@@ -58,6 +58,7 @@ def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\fra
     output = gamma1/log(d)+gamma2/d+gamma3/d**2
     output /= ideal_chromosome_divisor # Divide the ideal chromosome by a user-defined.
     return output
+
 '''
 def gamma_cis_old(d):
     if d < 2:
