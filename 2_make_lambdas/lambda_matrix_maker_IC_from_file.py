@@ -59,7 +59,7 @@ def trans_gamma(d):
     output = trans_gammas[d]
     return output
 
-kb50 = 500 #50kb converted to beads. 50kb is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
+kb50 = 100 #50kb converted to beads. 50kb is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
 loose_pairing_strength = trans_gamma(kb50)
 
 #===========Pairing=Types======================
