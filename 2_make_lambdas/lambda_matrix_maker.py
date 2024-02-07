@@ -58,6 +58,7 @@ def gamma(d): # \gamma(d) = \frac{\gamma_1}{\log{(d)}} +\frac{\gamma_2}{d} +\fra
     output = gamma1/log(d)+gamma2/d+gamma3/d**2
     output /= ideal_chromosome_divisor # Divide the ideal chromosome by a user-defined.
     return output
+
 '''
 def gamma_cis_old(d):
     if d < 2:
@@ -151,13 +152,13 @@ M = 3 # loop size in beads
 Lambda = zeros([N+N,N+N])
 
 # Add loops and links without using delta functions
-#square loop
+# square loop
 if loop == "True":
     for i in range(250,251+M):
         for j in range(750,751+M):
             Lambda[i,j] += loop_strength
 
-#square link
+# square link
 if link == "True":
     for i in range(1250,1251+M):
         for j in range(750,751+M):
@@ -179,20 +180,20 @@ for i in range(N):
     for j in range(N):
         Lambda[i,j+N] += delta_function[1,pairing_types_matrix[i,j]] * loose_pairing_strength
         Lambda[i,j+N] += delta_function[2,pairing_types_matrix[i,j]] * trans_IC_strength * gamma_trans(abs(i-j))# tight pairing
-        Lambda[i,j+N] += typeToType[seq_paternal[i],seq_maternal[j]]# chromatin type
+        Lambda[i,j+N] += typeToType[seq_paternal[i],seq_maternal[j]] # chromatin type
 
 # trans on bottom left
 for i in range(N):
     for j in range(N):
         Lambda[i+N,j] += delta_function[1,pairing_types_matrix[i,j]] * loose_pairing_strength
         Lambda[i+N,j] += delta_function[2,pairing_types_matrix[i,j]] * trans_IC_strength * gamma_trans(abs(i-j))# tight pairing
-        Lambda[i+N,j] += typeToType[seq_maternal[i],seq_paternal[j]]# chromatin type
+        Lambda[i+N,j] += typeToType[seq_maternal[i],seq_paternal[j]] # chromatin type
 
 # cis maternal; i.e. bottom right
 for i in range(N):
     for j in range(N):
-        Lambda[i+N,j+N] += gamma_cis(abs(i-j))# ideal chromosome
-        Lambda[i+N,j+N] += typeToType[seq_maternal[i],seq_maternal[j]]# chromatin type
+        Lambda[i+N,j+N] += gamma_cis(abs(i-j)) # ideal chromosome
+        Lambda[i+N,j+N] += typeToType[seq_maternal[i],seq_maternal[j]] # chromatin type
 
 # Just in case self interactions are a problem, make them zero
 for i in range(5000):
