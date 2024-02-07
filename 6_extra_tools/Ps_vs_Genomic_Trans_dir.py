@@ -8,7 +8,7 @@ typesPlist = ['AAAA','AAAA'] # list of sequence names to help reference the corr
 typesMlist = ['AAAA','AAAA']
 
 i = 0 #keeps track of which sequence name to use
-for directory_number in {21,22}: # Make directory numbers consistent with the sequence name lists above. Otherwise the output is faulty.
+for directory_number in {76,77}: # Make directory numbers consistent with the sequence name lists above. Otherwise the output is faulty.
     filename = "Hi-C_directory_"+str(directory_number)+".txt"
 
     typesP = typesPlist[i]

@@ -25,7 +25,7 @@ filename = args.output_file_name # name of output file (extension will be .txt)
 def cndb_to_txt_block(string1, string2):# e.g.  r'./traj_0.cndb'
     tool = cndbTools()
     tool.load(string1,string2)
-    frameIncrement = 2 # set to 1 if you want all frames
+    frameIncrement = 3 # set to 1 if you want all frames
     first = 10000
     last = None # choose None to include all
     xyzs1 = tool.xyz1(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])

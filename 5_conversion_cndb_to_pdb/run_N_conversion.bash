@@ -1,4 +1,4 @@
-for i in 59
+for i in `seq 75 76`
 
 do
 

@@ -2,7 +2,7 @@ lambdas_file_name = "lambdassegment_index"#you should have three .txt files in d
 #segment_index is changed by a different script into the simulation number in order to reference the correct lambdas matrix.
 dt = .01 #timestep for the main simulation; dt=.01 in tutorial
 stepsPerBlock = 1000 #steps per block (standard is 1000)
-n_blocks = 10 #number of blocks (standard is 30000)
+n_blocks = 50000 #number of blocks (standard is 30000)
 collapse_stepsPerBlock = 1000
 collapse_n_blocks = 0 #number of blocks when collapsing initial structures (standard is 500)
 Ecut = 4.0 # 6.5 was the one we used to prevent corresponding beads from overlapping in trans.
