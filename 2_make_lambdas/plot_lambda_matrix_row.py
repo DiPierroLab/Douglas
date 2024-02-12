@@ -32,7 +32,7 @@ vec78 = vec78[0:250]
 # Plot the lambdas slices. They should overlap.
 plot(d*bead_size_new, vec2,':', label='sim 2')
 plot(d*bead_size_new, vec59,'o', label='sim 59')#: IC/6   AA/2  line first 40 beads line from 40 to 600 beads')
-plot(d*bead_size_new, vec78,'-', label='sim 78')
+plot(d*bead_size_new, vec78,'-', label='sim 82')
 #plot(d*250,-exp(-d/420)/12-d/300000, label = 'NuChroM gamma fit')
 #axvline(x = 40*bead_size_new, color = 'black', label='genomic distance with correct contact frequency')
 xlabel('genomic distance from diagonal in kb')
