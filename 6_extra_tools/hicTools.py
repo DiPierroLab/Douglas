@@ -141,7 +141,10 @@ def PvsGenomic(squareMatrixText = "matrix.txt",outputFileName = "PvsGenomic"):
         avg = sum_d/(N-d)
         average[d] = avg
     plt.plot(log(average))
+    plt.ylabel('log average contact probability')
+    plt.xlabel('trans genomic distance from trans diagonal')
     savetxt(outputFileName+".txt",average)
+    return average
 
 def PAAvsGenomic(squareMatrixText, types1, types2, outputFileName = "PAAvsGenomic"):
     from numpy import zeros, loadtxt, savetxt, log
