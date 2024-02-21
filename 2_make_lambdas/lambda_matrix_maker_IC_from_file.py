@@ -133,7 +133,7 @@ delta_function = eye(3) # used to toggle which pairing types add to various indi
 # cis paternal; i.e. top left
 for i in range(N):
     for j in range(N):
-        Lambda[i,j] += cis_gamma(abs(i-j))# ideal chromosome
+        #Lambda[i,j] += cis_gamma(abs(i-j))# ideal chromosome
         Lambda[i,j] += typeToType[seq_paternal[i],seq_paternal[j]]# chromatin type
 
 # trans on top right
@@ -153,7 +153,7 @@ for i in range(N):
 # cis maternal; i.e. bottom right
 for i in range(N):
     for j in range(N):
-        Lambda[i+N,j+N] += cis_gamma(abs(i-j))# ideal chromosome
+        #Lambda[i+N,j+N] += cis_gamma(abs(i-j))# ideal chromosome
         Lambda[i+N,j+N] += typeToType[seq_maternal[i],seq_maternal[j]]# chromatin type
 
 # Just in case self interactions are a problem, make them zero
