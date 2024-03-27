@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 path = "/work/dipierrolab/douglas/final_Hi-C_maps/"
-for i in {85}:
+for i in range(167,175):
     HiC_Matrices = []
     number_of_matrices = 0
-    for j in range(1,9):#part
+    for j in {1}:#part
         number_of_matrices += 1
         print("loading Hi-C_directory_"+str(i)+"_part_"+str(j)+".txt")
         HiC_Matrices.append(numpy.loadtxt("//scratch//white.do//Pairing//directory_"+str(i)+"//part_"+str(j)+"//Hi-C_multi.txt"))

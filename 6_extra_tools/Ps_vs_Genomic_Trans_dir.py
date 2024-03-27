@@ -1,14 +1,17 @@
 from hicTools import *
 
+simA = 167 # first simulation number
+simB = 174 # last simulation number
+
 path = '/work/dipierrolab/douglas/final_Hi-C_maps/' # path to Hi-C map .txt storage
 path2 = '/home/white.do/DiPierroLab_Douglas/1_make_sequences/' # path to AB type sequence storage
 path3 = '/work/dipierrolab/douglas/PvsGenomic/' # path in which to store final P vs d txt files
 
-typesPlist = ['AAAA'] # list of sequence names to help reference the correct AB type sequence files
-typesMlist = ['AAAA']
+typesPlist = ['AAAA']*(simB-simA+1) # list of sequence names to help reference the correct AB type sequence files
+typesMlist = ['AAAA']*(simB-simA+1)
 
 i = 0 #keeps track of which sequence name to use
-for directory_number in {59}: # Make directory numbers consistent with the sequence name lists above. Otherwise the output is faulty.
+for directory_number in range(simA,simB+1): # Make directory numbers consistent with the sequence name lists above. Otherwise the output is faulty.
     filename = "Hi-C_directory_"+str(directory_number)+".txt"
 
     typesP = typesPlist[i]
