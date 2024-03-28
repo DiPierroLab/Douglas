@@ -29,11 +29,12 @@ link = args.link
 type_to_type_divisor = args.type_to_type_divisor
 
 # Paths
-gammas_path = '/Users/douglas/Documents/DiPierroLab_Douglas/2_make_lambdas/gamma_files/'
-seqPath = "../1_make_sequences/"#path to the sequences of chromatin type and pairing type
+gammas_path = '/home/white.do/DiPierroLab_Douglas/2_make_lambdas/gamma_files/'#'gamma_files/'
+seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"#path to the sequences of chromatin type and pairing type
 pat_type_sequence_path = seqPath + "chr_"+pat_type_sequence+"_2500_beads.txt"
 mat_type_sequence_path = seqPath + "chr_"+mat_type_sequence+"_2500_beads.txt"
 pairing_type_sequence_path = seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt'
+savePath = '/work/dipierrolab/douglas/lambdas/'#"/Users/douglas/Documents/Features_Transfer/store_lambdas/"
 
 #============Chromatin=Types===============
 seq_paternal_string = loadtxt(pat_type_sequence_path,str) #array of strings encoding chromatin types for the paternal sequence of beads
@@ -183,7 +184,6 @@ for i in range(2*N-1):
 
 #======================================
 # Save and display the lambdas matrix.
-savePath = "/Users/douglas/Documents/Features_Transfer/store_lambdas/"
 
 savetxt(savePath + "lambdas"+directory_number + "_0.txt",Lambda[0:N,0:N],delimiter=',')# delimiter of ',' makes output into a csv file
 savetxt(savePath + "lambdas"+directory_number + "_1.txt",Lambda[N:N+N,N:N+N],delimiter=',')
