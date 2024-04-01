@@ -1,6 +1,6 @@
 cd /scratch/white.do/Pairing/
 
-for j in 170 174
+for j in `seq 175 223`
 do 
 for i in 1
 do
