@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+'''
 path = '/work/dipierrolab/douglas/final_Hi-C_maps/'
 
 n = 175
@@ -13,6 +13,8 @@ for i in range(7):
         phase_diagram[i,j] = trans_contacts/cis_contacts
         print(round((n-174)*100/49),' percent done')
         n += 1
+'''
+phase_diagram = np.loadtxt('phase_diagram.txt')
 
 plt.imshow(phase_diagram, origin = 'lower')
 plt.xlabel('B')
@@ -20,4 +22,5 @@ plt.ylabel('A')
 plt.xticks(ticks = range(7), labels = np.linspace(0.5,3.5,7))
 plt.yticks(ticks = range(7), labels = [.4,.5,.6,.7,.8,.9,1.0])
 plt.title('trans contacts over cis contacts  gamma(d)=A*e^(-d/B)')
+plt.colorbar()
 plt.savefig('phase_diagram.png')
