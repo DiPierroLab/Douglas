@@ -1,2 +1,2 @@
 
-python lambda_matrix_maker_IC_from_file.py 174 BBBB BBBB gamma_154_cis.txt gamma_trans_151_to_158.txt TTLTT True True 2
+python lambda_matrix_maker_IC_from_file.py 224 AAAA AAAA gamma_cis_224.txt gamma_trans_224.txt TTTTT False False 2
