@@ -29,12 +29,20 @@ link = args.link
 type_to_type_divisor = args.type_to_type_divisor
 
 # Paths
-gammas_path = '/home/white.do/DiPierroLab_Douglas/2_make_lambdas/gamma_files/'#'gamma_files/'
-seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"#path to the sequences of chromatin type and pairing type
+gammas_path = 'gamma_files/' # on local machine
+#gammas_path = '/home/white.do/DiPierroLab_Douglas/2_make_lambdas/gamma_files/' # on discovery cluster
+
+#path to the sequences of chromatin type and pairing type
+seqPath = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"# on local machine
+#seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"# on discovery cluster
+
+savePath = "/Users/douglas/Documents/Features_Transfer/store_lambdas/" # on local machine
+#savePath = '/work/dipierrolab/douglas/lambdas/' # on discovery cluster
+
 pat_type_sequence_path = seqPath + "chr_"+pat_type_sequence+"_2500_beads.txt"
 mat_type_sequence_path = seqPath + "chr_"+mat_type_sequence+"_2500_beads.txt"
 pairing_type_sequence_path = seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt'
-savePath = '/work/dipierrolab/douglas/lambdas/'#"/Users/douglas/Documents/Features_Transfer/store_lambdas/"
+
 
 #============Chromatin=Types===============
 seq_paternal_string = loadtxt(pat_type_sequence_path,str) #array of strings encoding chromatin types for the paternal sequence of beads
