@@ -1,7 +1,7 @@
 from hicTools import *
 
-simA = 167 # first simulation number
-simB = 174 # last simulation number
+simA = 224 # first simulation number
+simB = 224 # last simulation number
 
 path = '/work/dipierrolab/douglas/final_Hi-C_maps/' # path to Hi-C map .txt storage
 path2 = '/home/white.do/DiPierroLab_Douglas/1_make_sequences/' # path to AB type sequence storage
