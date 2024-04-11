@@ -16,6 +16,7 @@ parser.add_argument('cndb_file_0_name',metavar='t0', type=str, help='path to cnd
 parser.add_argument('cndb_file_1_name',metavar='t1', type=str, help='path to cndb trajectory of second molecule')
 parser.add_argument('output_file_name',metavar='o', type=str)
 parser.add_argument('frameIncrement',metavar='inc',type=int)
+parser.add_argument('first_frame',metavar='ff', type=int)
 args = parser.parse_args()
 
 traj_0 = args.cndb_file_0_name # file name for cndb trajectory of first molecule
@@ -25,10 +26,11 @@ filename = args.output_file_name # name of output file (extension will be .txt)
 
 frameIncrement = args.frameIncrement # step size; set to 1 if you want all frames
 
+first = args.first_frame
+
 def cndb_to_txt_block(string1, string2):# e.g.  r'./traj_0.cndb'
     tool = cndbTools()
     tool.load(string1,string2)
-    first = 10000
     last = None # choose None to include all
     xyzs1 = tool.xyz1(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])
     xyzs2 = tool.xyz2(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])
