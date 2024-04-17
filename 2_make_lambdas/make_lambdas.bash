@@ -1,7 +1,7 @@
 
 cd /scratch/white.do/Pairing/
 
-for i in `seq 225 308`
+for i in 178 185 192 199 206 213 220 228 235 242 249 256 263
 do
 
 mkdir -p directory_$i
