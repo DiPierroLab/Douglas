@@ -47,9 +47,9 @@ for i in range(7,13):
         print(round((n-175)*100/182),' percent done')
         n += 1
 
-np.savetxt('phase_diagram.txt',phase_diagram)
+np.savetxt('phase_diagram_trans_over_cis_contacts.txt',phase_diagram)
 '''
-phase_diagram = np.loadtxt('phase_diagram.txt')
+phase_diagram = np.loadtxt('phase_diagram_trans_over_cis_contacts.txt')
 
 # Plot the phase diagram
 fig, ax = plt.subplots()
@@ -80,5 +80,5 @@ plt.xlabel('B')
 plt.ylabel('A')
 plt.title('trans contacts over cis contacts  gamma(d)=A*e^(-d/B)')
 plt.colorbar(im)
-plt.savefig('phase_diagram.png')
+plt.savefig('phase_diagram_trans_over_cis_contacts.png')
 plt.show()
