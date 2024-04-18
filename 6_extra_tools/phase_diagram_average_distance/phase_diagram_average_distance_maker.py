@@ -9,7 +9,7 @@ phase_diagram = np.zeros((13,13))
 # Populate bottom left block of matrix with the order parameter for pairing, which is average distance between corresponding beads
 for i in range(7):
     for j in range(7):
-        average_distance = np.loadtxt(path+str(n)+'/part_1/average_distance.txt') # Average distance between corresponding beads in simulation n
+        average_distance = np.loadtxt(path+str(n)+'/part_1/average.txt') # Average distance between corresponding beads in simulation n
         phase_diagram[i,j] = average_distance
         print(round((n-174)*100/169),' percent done')
         n += 1
@@ -18,7 +18,7 @@ n += 1 # because sim 224 was unrelated
 # Populate top left block of matrix with the order parameter for pairing, which is average distance between corresponding beads
 for i in range(7,13):
     for j in range(7):
-        average_distance = np.loadtxt(path+str(n)+'/part_1/average_distance.txt') # Average distance between corresponding beads in simulation n
+        average_distance = np.loadtxt(path+str(n)+'/part_1/average.txt') # Average distance between corresponding beads in simulation n
         phase_diagram[i,j] = average_distance
         print(round((n-175)*100/169),' percent done')
         n += 1
@@ -26,7 +26,7 @@ for i in range(7,13):
 # Populate bottom right block of matrix with the order parameter for pairing, which is average distance between corresponding beads
 for i in range(7):
     for j in range(7,13):
-        average_distance = np.loadtxt(path+str(n)+'/part_1/average_distance.txt') # Average distance between corresponding beads in simulation n
+        average_distance = np.loadtxt(path+str(n)+'/part_1/average.txt') # Average distance between corresponding beads in simulation n
         phase_diagram[i,j] = average_distance
         print(round((n-175)*100/169),' percent done')
         n += 1
@@ -34,7 +34,7 @@ for i in range(7):
 # Populate top right block of matrix with the order parameter for pairing, which is average distance between corresponding beads
 for i in range(7,13):
     for j in range(7,13):
-        average_distance = np.loadtxt(path+str(n)+'/part_1/average_distance.txt') # Average distance between corresponding beads in simulation n
+        average_distance = np.loadtxt(path+str(n)+'/part_1/average.txt') # Average distance between corresponding beads in simulation n
         phase_diagram[i,j] = average_distance
         print(round((n-175)*100/169),' percent done')
         n += 1

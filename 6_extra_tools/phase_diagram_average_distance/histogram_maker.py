@@ -33,6 +33,7 @@ def plot_histogram(distances):
     plt.ylabel('Frequency')
     plt.title('Histogram of Distances between Bead 1250')
     plt.grid(True)
+    plt.savefig('Histogram_of_distances_between_1250P_and_1250M.png')
     plt.show()
 
 # Example usage
@@ -45,3 +46,5 @@ coords2 = read_coordinates_from_pdb(pdb_file2)
 distances = calculate_distances(coords1, coords2)
 plot_histogram(distances)
 
+average = np.array([np.mean(distances)])
+np.savetxt('average.txt',average)
