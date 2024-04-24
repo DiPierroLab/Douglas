@@ -12,6 +12,7 @@ parser.add_argument('mat_type_sequence',metavar='mat', type=str, help='maternal 
 parser.add_argument('cis_ideal_chromosome_file',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
 parser.add_argument('trans_ideal_chromosome_file',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
 parser.add_argument('pairing_type_sequence_name',metavar='pt', type=str, help='')
+parser.add_argument('loop_strength',metavar='ls',type=float,help='interaction energy between bead pairs in the same loop or link')
 parser.add_argument('loop',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
 parser.add_argument('link',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
 parser.add_argument('type_to_type_divisor',metavar='tt_div', type=float, help='')
@@ -24,6 +25,7 @@ mat_type_sequence = args.mat_type_sequence
 cis_ideal_chromosome_file = args.cis_ideal_chromosome_file
 trans_ideal_chromosome_file = args.trans_ideal_chromosome_file
 pairing_type_sequence_name = args.pairing_type_sequence_name
+loop_strength = args.loop_strength # loop_strength = -0.8264462879099161 * 2.0
 loop = args.loop
 link = args.link
 type_to_type_divisor = args.type_to_type_divisor
@@ -129,11 +131,8 @@ print('')
 print("Making matrix")
 
 #==================Looping====================
-loop_strength = -0.8264462879099161 * 2.0 #The first number -0.8264462879099161 is called the star wars number for historical reasons. 
 M = 3 # loop size in beads
 
-#=============================================
-#=============================================
 Lambda = zeros([N+N,N+N])
 
 # Add loops and links without using delta functions
