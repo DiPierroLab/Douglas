@@ -12,7 +12,8 @@ parser.add_argument('mat_type_sequence',metavar='mat', type=str, help='maternal 
 parser.add_argument('cis_ideal_chromosome_file',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
 parser.add_argument('trans_ideal_chromosome_file',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
 parser.add_argument('pairing_type_sequence_name',metavar='pt', type=str, help='')
-parser.add_argument('loop_strength',metavar='ls',type=float,help='interaction energy between bead pairs in the same loop or link')
+parser.add_argument('loop_strength',metavar='lst',type=float,help='interaction energy between bead pairs in the same loop or link')
+parser.add_argument('loop_size',metavar='lsz',type=int,help='side length of a square region to which to add loop energies')
 parser.add_argument('loop',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
 parser.add_argument('link',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
 parser.add_argument('type_to_type_divisor',metavar='tt_div', type=float, help='')
@@ -26,20 +27,21 @@ cis_ideal_chromosome_file = args.cis_ideal_chromosome_file
 trans_ideal_chromosome_file = args.trans_ideal_chromosome_file
 pairing_type_sequence_name = args.pairing_type_sequence_name
 loop_strength = args.loop_strength # loop_strength = -0.8264462879099161 * 2.0
+M = args.loop_size # loop size in beads
 loop = args.loop
 link = args.link
 type_to_type_divisor = args.type_to_type_divisor
 
 # Paths
-#gammas_path = 'gamma_files/' # on local machine
-gammas_path = '/home/white.do/DiPierroLab_Douglas/2_make_lambdas/gamma_files/' # on discovery cluster
+gammas_path = 'gamma_files/' # on local machine
+#gammas_path = '/home/white.do/DiPierroLab_Douglas/2_make_lambdas/gamma_files/' # on discovery cluster
 
 #path to the sequences of chromatin type and pairing type
-#seqPath = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"# on local machine
-seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"# on discovery cluster
+seqPath = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"# on local machine
+#seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"# on discovery cluster
 
-#savePath = "/Users/douglas/Documents/Features_Transfer/store_lambdas/" # on local machine
-savePath = '/work/dipierrolab/douglas/lambdas/' # on discovery cluster
+savePath = "/Users/douglas/Documents/Features_Transfer/store_lambdas/" # on local machine
+#savePath = '/work/dipierrolab/douglas/lambdas/' # on discovery cluster
 
 pat_type_sequence_path = seqPath + "chr_"+pat_type_sequence+"_2500_beads.txt"
 mat_type_sequence_path = seqPath + "chr_"+mat_type_sequence+"_2500_beads.txt"
@@ -131,7 +133,6 @@ print('')
 print("Making matrix")
 
 #==================Looping====================
-M = 3 # loop size in beads
 
 Lambda = zeros([N+N,N+N])
 
