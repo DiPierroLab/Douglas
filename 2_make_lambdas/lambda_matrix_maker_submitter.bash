@@ -1,14 +1,9 @@
 
-python lambda_matrix_maker_IC_from_file.py 178 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_178.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 185 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_185.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 192 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_192.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 199 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_199.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 206 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_206.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 213 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_213.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 220 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_220.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 228 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_228.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 235 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_235.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 242 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_242.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 249 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_249.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 256 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_256.txt TTTTT False False 2
-python lambda_matrix_maker_IC_from_file.py 263 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_263.txt TTTTT False False 2
+python lambda_matrix_maker_IC_from_file.py 345 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_214.txt TTTTT -1.5 4 False True 2
+python lambda_matrix_maker_IC_from_file.py 346 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_214.txt TTTTT -1.5 5 False True 2
+python lambda_matrix_maker_IC_from_file.py 347 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_214.txt TTTTT -1.5 6 False True 2
+python lambda_matrix_maker_IC_from_file.py 348 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_214.txt TTTTT -1.5 7 False True 2
+python lambda_matrix_maker_IC_from_file.py 349 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_344.txt TTTTT -3.0 4 False True 2
+python lambda_matrix_maker_IC_from_file.py 350 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_344.txt TTTTT -3.0 5 False True 2
+python lambda_matrix_maker_IC_from_file.py 351 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_344.txt TTTTT -3.0 6 False True 2
+python lambda_matrix_maker_IC_from_file.py 352 AAAA AAAA gamma_phase_diagram_cis.txt gamma_trans_344.txt TTTTT -3.0 7 False True 2
