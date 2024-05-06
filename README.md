@@ -4,7 +4,8 @@ Before starting to follow the pipeline outlined below, create a new conda enviro
 I used Python 3.8.13.
 
 2. Run the following command:
-conda create --name environmentName --file ./requirements_conda.txt
+conda create --name simulation --file ./requirements_conda.txt
+#'simulation' is the environment name. If you change it, you will also need to change it in the submission scripts.
 
 Next, adjust the paths in the .py files.
 
