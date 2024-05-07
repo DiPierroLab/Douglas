@@ -8,6 +8,6 @@
 
 source ~/miniconda3/etc/profile.d/conda.sh
 
-conda activate simulation
+conda activate toy_pairing_environment
 
 python combine_pdb_1.py

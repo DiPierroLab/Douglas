@@ -7,7 +7,7 @@
 
 source ~/miniconda3/etc/profile.d/conda.sh
 
-conda activate simulation
+conda activate toy_pairing_environment
 
 python /home/white.do/DiPierroLab_Douglas/conversion_cndb_to_pdb/frame_extractor_traj_0.py
 python /home/white.do/DiPierroLab_Douglas/conversion_cndb_to_pdb/frame_extractor_traj_1.py

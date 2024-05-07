@@ -7,6 +7,6 @@
 
 source ~/miniconda3/etc/profile.d/conda.sh
 
-conda activate simulation
+conda activate toy_pairing_environment
 
 python /home/white.do/DiPierroLab_Douglas/4_Hi-C/Hi-C_averager.py

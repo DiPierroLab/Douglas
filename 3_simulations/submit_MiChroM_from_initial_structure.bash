@@ -9,6 +9,6 @@
 
 source ~/miniconda3/etc/profile.d/conda.sh
 
-conda activate simulation
+conda activate toy_pairing_environment
 
 python /scratch/white.do/Pairing/directory_segment_index/Toy_directory_segment_index_from_initial_structure.py

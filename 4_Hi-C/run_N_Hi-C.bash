@@ -1,4 +1,4 @@
-for i in `seq 359 362`
+for i in 362
 
 do
 

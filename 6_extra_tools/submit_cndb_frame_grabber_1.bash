@@ -10,6 +10,6 @@ cd /scratch/white.do/Pairing/directory_158/part_2
 
 source ~/miniconda3/etc/profile.d/conda.sh
 
-conda activate simulation
+conda activate toy_pairing_environment
 
 python /home/white.do/DiPierroLab_Douglas/conversion_cndb_to_pdb/cndb_frame_grabber_1.py
