@@ -16,7 +16,9 @@ parser.add_argument('loop_strength',metavar='lst',type=float,help='interaction e
 parser.add_argument('loop_size',metavar='lsz',type=int,help='side length of a square region to which to add loop energies')
 parser.add_argument('loop',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
 parser.add_argument('link',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
-parser.add_argument('type_to_type_divisor',metavar='tt_div', type=float, help='')
+parser.add_argument('AA',metavar='AA', type=float, help='AA interaction strength original_AA/2=-0.134)')
+parser.add_argument('BB',metavar='BB', type=float, help='BB interaction strength original_BB/2=-0.342)')
+
 
 args = parser.parse_args()
 
@@ -30,7 +32,9 @@ loop_strength = args.loop_strength # loop_strength = -0.8264462879099161 * 2.0
 M = args.loop_size # loop size in beads
 loop = args.loop
 link = args.link
-type_to_type_divisor = args.type_to_type_divisor
+AA = args.AA
+AB = AA # Set these to the same value because they are about the same
+BB = args.BB
 
 # Paths
 gammas_path = 'gamma_files/' # on local machine
@@ -70,10 +74,8 @@ for i in range(N):
         seq_maternal[i] = 1
 
 # An array of interaction strengths between different types of bead. It's the original from the MiChroM paper.
-typeToType = array([[-0.268028,-0.262513], # AA,AB
-[-0.262513,-0.342020]])
-
-typeToType /= type_to_type_divisor # Divide the strength of type-to-type interactions by a user-defined number.
+typeToType = array([[AA,AB], # AA,AB
+                    [AB,BB]])
 
 #===============Lengthwise=Compaction===================
 
@@ -197,7 +199,7 @@ savetxt(savePath + "lambdas"+directory_number + "_0.txt",Lambda[0:N,0:N],delimit
 savetxt(savePath + "lambdas"+directory_number + "_1.txt",Lambda[N:N+N,N:N+N],delimiter=',')
 savetxt(savePath + "lambdas"+directory_number + ".txt",Lambda,delimiter=',')
 imshow(Lambda,vmin=Lambda[0,2],vmax =Lambda[0,4999])
-title('simulation '+str(directory_number)+'   AA/'+str(type_to_type_divisor))
+title('simulation '+str(directory_number))
 colorbar()
 savefig(savePath+"lambdas"+directory_number+".png",dpi=300)
 show()
