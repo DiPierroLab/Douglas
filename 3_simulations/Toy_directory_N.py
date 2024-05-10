@@ -61,12 +61,42 @@ for _ in range(collapse_n_blocks):
 sim_chr_copy2.saveStructure(filename="chr_copy2", mode="ndb")
 del sim_chr_copy2
 #==============================================================
+#===============================
+sim_collapse_1_and_2 = MiChroM(name="chr_chr", temperature=1.0, time_step=0.001)
+sim_collapse_1_and_2.setup(platform="opencl")
+sim_collapse_1_and_2.saveFolder('./')
+Struc = sim_collapse_1_and_2.loadNDB(NDBfiles=['./chr_copy1_0_block0.ndb','./chr_copy2_0_block0.ndb'])
+Struc = sim_collapse_1_and_2.setFibPosition(Struc, dist=(1.5,3.0))
+sim_collapse_1_and_2.loadStructure(Struc, center=True)
+sim_collapse_1_and_2.saveStructure(mode='ndb')
+#Homopolymer Potentials
+sim_collapse_1_and_2.addFENEBonds(kfb=30.0)
+sim_collapse_1_and_2.addAngles(ka=2.0)
+sim_collapse_1_and_2.addRepulsiveSoftCore(Ecut=Ecut)
+sim_collapse_1_and_2.addFlatBottomHarmonic(n_rad=20)
+#adding MiChroM energy with a lambdas matrix
+sim_collapse_1_and_2.addLambdas(mu=mu, rc = rc, LambdasArray='/work/dipierrolab/douglas/lambdas/'+lambdas_file_name+'.txt')
+
+sim_collapse_1_and_2.initStorage('traj', mode='w')
+
+print("Let the chromosomes settle into each other...")
+for _ in range(20000):
+    sim_collapse_1_and_2.runSimBlock(stepsPerBlock,increment=True)
+    sim_collapse_1_and_2.saveStructure()
+
+sim_collapse_1_and_2.storage[0].close() #close the cndb file for chr_copy1
+sim_collapse_1_and_2.storage[1].close() #close the cndb file for chr_copy2
+
+sim_collapse_1_and_2.saveStructure(filename="after_collapse",mode="ndb")
+#===============================
+#===============================
+
 midTime = datetime.datetime.now()
 
 sim = MiChroM(name="chr_chr", temperature=1.0, time_step=dt)
 sim.setup(platform="opencl")
 sim.saveFolder('./')
-Struc = sim.loadNDB(NDBfiles=['./chr_copy1_0_block0.ndb','./chr_copy2_0_block0.ndb'])
+Struc = sim.loadNDB(NDBfiles=['./after_collapse_0_block20000.ndb','./after_collapse_0_block20000.ndb'])
 Struc = sim.setFibPosition(Struc, dist=(1.5,3.0))
 sim.loadStructure(Struc, center=True)
 sim.saveStructure(mode='ndb')

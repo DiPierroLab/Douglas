@@ -1,4 +1,4 @@
-for i in `seq 345 352`
+for i in 363 367
 
 do
 
