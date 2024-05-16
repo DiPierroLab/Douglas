@@ -1,45 +1,57 @@
-from numpy import zeros, array, savetxt, loadtxt, eye
+from numpy import zeros, array, savetxt, loadtxt, eye, exp
 from matplotlib.pyplot import imshow, show, colorbar, savefig, title
 import argparse
 
 # User inputs
-
 parser = argparse.ArgumentParser()
 
 parser.add_argument('directory_number',metavar='dir', type=str, help='identifying number for simulation')
+
 parser.add_argument('pat_type_sequence',metavar='pat', type=str, help='paternal AB chromatin type sequence identifyer e.g., AAAA, ABAB')
 parser.add_argument('mat_type_sequence',metavar='mat', type=str, help='maternal AB chromatin type sequence identifyer e.g., AAAA, ABAB')
-parser.add_argument('cis_ideal_chromosome_file',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
-parser.add_argument('trans_ideal_chromosome_file',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
 parser.add_argument('pairing_type_sequence_name',metavar='pt', type=str, help='')
+
+# gamma(d)= -C * exp(-d/D) 
+parser.add_argument('C_cis',metavar='C_cis', type=float, help='energy scale for ideal chromosome gamma_cis(d)= -C_cis * exp(-d/D_cis) ')
+parser.add_argument('D_cis',metavar='D_cis', type=float, help='characteristic decay genomic distance for ideal chromosome gamma_cis(d)= -C_cis * exp(-d/D_cis) ')
+parser.add_argument('C_trans',metavar='C_trans', type=float, help='energy scale for trans ideal chromosome pairing gamma_trans(d)= -C_trans * exp(-d/D_trans) ')
+parser.add_argument('D_trans',metavar='D_trans', type=float, help='characteristic decay genomic distance for trans ideal chromosome pairing gamma_trans(d)= -C_trans * exp(-d/D_trans) ')
+
 parser.add_argument('loop_strength',metavar='lst',type=float,help='interaction energy between bead pairs in the same loop or link')
 parser.add_argument('loop_size',metavar='lsz',type=int,help='side length of a square region to which to add loop energies')
 parser.add_argument('loop',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
 parser.add_argument('link',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
+
 parser.add_argument('AA',metavar='AA', type=float, help='AA interaction strength original_AA/2=-0.134)')
 parser.add_argument('BB',metavar='BB', type=float, help='BB interaction strength original_BB/2=-0.342)')
 
+# parse args
 args = parser.parse_args()
 
+# assign variables from argparse
 directory_number = args.directory_number # file name for cndb trajectory of first molecule
+
 pat_type_sequence = args.pat_type_sequence
 mat_type_sequence = args.mat_type_sequence
-cis_ideal_chromosome_file = args.cis_ideal_chromosome_file
-trans_ideal_chromosome_file = args.trans_ideal_chromosome_file
 pairing_type_sequence_name = args.pairing_type_sequence_name
+
+C_cis = args.C_cis
+D_cis = args.D_cis
+C_trans = args.C_trans
+D_trans = args.D_trans
+
 loop_strength = args.loop_strength # loop_strength = -0.8264462879099161 * 2.0
 M = args.loop_size # loop size in beads
 loop = args.loop
 link = args.link
+
 AA = args.AA
-AB = AA # Set these to the same value because they are about the same
+AB = AA # Set these to the same value for simplicity. This is ok because they were about the same anyways in the MiChroM paper.
 BB = args.BB
 
 # Paths
-gammas_path = 'gamma_files/' # on local machine
-#gammas_path = '/home/white.do/DiPierroLab_Douglas/2_make_lambdas/gamma_files/' # on discovery cluster
 
-#path to the sequences of chromatin type and pairing type
+#path to the sequences of chromatin types and pairing types
 seqPath = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"# on local machine
 #seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"# on discovery cluster
 
@@ -49,7 +61,6 @@ savePath = "/Users/douglas/Documents/Features_Transfer/store_lambdas/" # on loca
 pat_type_sequence_path = seqPath + "chr_"+pat_type_sequence+"_2500_beads.txt"
 mat_type_sequence_path = seqPath + "chr_"+mat_type_sequence+"_2500_beads.txt"
 pairing_type_sequence_path = seqPath + 'chr_chr_'+pairing_type_sequence_name+'_2500_2500_beads.txt'
-
 
 #============Chromatin=Types===============
 seq_paternal_string = loadtxt(pat_type_sequence_path,str) #array of strings encoding chromatin types for the paternal sequence of beads
@@ -79,14 +90,12 @@ typeToType = array([[AA,AB], # AA,AB
 #===============Lengthwise=Compaction===================
 
 # gammas from files
-cis_gammas = loadtxt(gammas_path+cis_ideal_chromosome_file)
 def cis_gamma(d):
-    output = cis_gammas[d]
+    output = -C_cis * exp(-d/D_cis)
     return output
 
-trans_gammas = loadtxt(gammas_path+trans_ideal_chromosome_file)
 def trans_gamma(d):
-    output = trans_gammas[d]
+    output = -C_trans * exp(-d/D_trans)
     return output
 
 kb50 = 100 #50kb converted to beads. 50kb is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)

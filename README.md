@@ -1,4 +1,4 @@
-Before starting to follow the pipeline outlined below, create a new conda environment.
+#Before starting to follow the pipeline outlined below, create a new conda environment.
 
 1. Install anaconda or miniconda onto your supercomputer or less favorably your local machine.
 I used Python 3.8.13.
@@ -12,6 +12,8 @@ Next, adjust the paths in the .py files.
 The codes are written to be ran on a supercomputer using slurm.
 
 We seek to sample the canonical ensemble for two interacting polymer chains with 2500 beads each.
+
+#Pipeline
 
 1. Generate a sequence of chromatin types (A or B) and a sequences of pairing types (T, L, or N) for each chain. Do this by running an appropriate script from 1_make_sequences. To make your own script, edit and run one of those provided.
  
