@@ -1,0 +1,19 @@
+Start Hi-C: 
+2024-05-15 17:56:15.594859
+Traceback (most recent call last):
+  File "/home/white.do/DiPierroLab_Douglas/4_Hi-C/Hi-C_double.py", line 76, in <module>
+    cndb_to_txt(traj_0,traj_1,filename=filename) # traj_0 and traj_1 are defined with argparse arguments above.
+  File "/home/white.do/DiPierroLab_Douglas/4_Hi-C/Hi-C_double.py", line 51, in cndb_to_txt
+    block = cndb_to_txt_block(traj_i,traj_j)
+  File "/home/white.do/DiPierroLab_Douglas/4_Hi-C/Hi-C_double.py", line 33, in cndb_to_txt_block
+    tool.load(string1,string2)
+  File "/home/white.do/DiPierroLab_Douglas/4_Hi-C/CndbToolsDouglas.py", line 38, in load
+    self.cndb1 = h5py.File(filename1, 'r')
+  File "/home/white.do/miniconda3/envs/toy_pairing_environment/lib/python3.8/site-packages/h5py/_hl/files.py", line 562, in __init__
+    fid = make_fid(name, mode, userblock_size, fapl, fcpl, swmr=swmr)
+  File "/home/white.do/miniconda3/envs/toy_pairing_environment/lib/python3.8/site-packages/h5py/_hl/files.py", line 235, in make_fid
+    fid = h5f.open(name, flags, fapl=fapl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 102, in h5py.h5f.open
+FileNotFoundError: [Errno 2] Unable to synchronously open file (unable to open file: name = 'traj_0.cndb', errno = 2, error message = 'No such file or directory', flags = 0, o_flags = 0)
