@@ -9,21 +9,23 @@ parser.add_argument('directory_number',metavar='dir', type=str, help='identifyin
 
 parser.add_argument('pat_type_sequence',metavar='pat', type=str, help='paternal AB chromatin type sequence identifyer e.g., AAAA, ABAB')
 parser.add_argument('mat_type_sequence',metavar='mat', type=str, help='maternal AB chromatin type sequence identifyer e.g., AAAA, ABAB')
-parser.add_argument('pairing_type_sequence_name',metavar='pt', type=str, help='')
+parser.add_argument('AA',metavar='AA', type=float, help='AA interaction strength original_AA/2=-0.134)')
+parser.add_argument('BB',metavar='BB', type=float, help='BB interaction strength original_BB/2=-0.171)')
 
 # gamma(d)= -C * exp(-d/D) 
+parser.add_argument('pairing_type_sequence_name',metavar='pt', type=str, help='')
 parser.add_argument('C_cis',metavar='C_cis', type=float, help='energy scale for ideal chromosome gamma_cis(d)= -C_cis * exp(-d/D_cis) ')
 parser.add_argument('D_cis',metavar='D_cis', type=float, help='characteristic decay genomic distance for ideal chromosome gamma_cis(d)= -C_cis * exp(-d/D_cis) ')
 parser.add_argument('C_trans',metavar='C_trans', type=float, help='energy scale for trans ideal chromosome pairing gamma_trans(d)= -C_trans * exp(-d/D_trans) ')
 parser.add_argument('D_trans',metavar='D_trans', type=float, help='characteristic decay genomic distance for trans ideal chromosome pairing gamma_trans(d)= -C_trans * exp(-d/D_trans) ')
+parser.add_argument('Loose_pairing_dist', type=int, help='Genomic distance (in kb) at which loose pairing and tight pairing have the same energy')
 
 parser.add_argument('loop_strength',metavar='lst',type=float,help='interaction energy between bead pairs in the same loop or link')
 parser.add_argument('loop_size',metavar='lsz',type=int,help='side length of a square region to which to add loop energies')
-parser.add_argument('loop',metavar='cis_gamma', type=str, help='path to cndb trajectory of first molecule')
-parser.add_argument('link',metavar='trans_gamma', type=str, help='path to cndb trajectory of second molecule')
-
-parser.add_argument('AA',metavar='AA', type=float, help='AA interaction strength original_AA/2=-0.134)')
-parser.add_argument('BB',metavar='BB', type=float, help='BB interaction strength original_BB/2=-0.342)')
+parser.add_argument('chr0_loop',metavar='chr0_loop', type=str, help='path to cndb trajectory of first molecule')
+parser.add_argument('chr1_loop',metavar='chr1_loop', type=str, help='path to cndb trajectory of first molecule')
+parser.add_argument('chr0_chr1_loops',metavar='chr0_chr1_loops', type=str, help='path to cndb trajectory of first molecule')
+parser.add_argument('link',metavar='link', type=str, help='path to cndb trajectory of second molecule')
 
 # parse args
 args = parser.parse_args()
@@ -33,21 +35,23 @@ directory_number = args.directory_number # file name for cndb trajectory of firs
 
 pat_type_sequence = args.pat_type_sequence
 mat_type_sequence = args.mat_type_sequence
-pairing_type_sequence_name = args.pairing_type_sequence_name
+AA = args.AA
+AB = AA # Set these to the same value for simplicity. This is ok because they were about the same anyways in the MiChroM paper.
+BB = args.BB
 
+pairing_type_sequence_name = args.pairing_type_sequence_name
 C_cis = args.C_cis
 D_cis = args.D_cis
 C_trans = args.C_trans
 D_trans = args.D_trans
+Loose_pairing_dist = args.Loose_pairing_dist
 
 loop_strength = args.loop_strength # loop_strength = -0.8264462879099161 * 2.0
 M = args.loop_size # loop size in beads
-loop = args.loop
+chr0_loop = args.chr0_loop
+chr1_loop = args.chr1_loop
+chr0_chr1_loops = args.chr0_chr1_loops
 link = args.link
-
-AA = args.AA
-AB = AA # Set these to the same value for simplicity. This is ok because they were about the same anyways in the MiChroM paper.
-BB = args.BB
 
 # Paths
 
@@ -98,8 +102,9 @@ def trans_gamma(d):
     output = -C_trans * exp(-d/D_trans)
     return output
 
-kb50 = 100 #50kb converted to beads. 50kb is the genomic distance at which loose and tight pairing have the same probability. (1 bead = .5 kb)
-loose_pairing_strength = trans_gamma(kb50)
+Loose_pairing_beads = 2*Loose_pairing_dist #Loose_pairing_dist (in kb) converted to beads.
+loose_pairing_strength = cis_gamma(Loose_pairing_beads)
+print('loose_pairing_strength =',loose_pairing_strength)
 
 #===========Pairing=Types======================
 pairing_types_sequence = loadtxt(pairing_type_sequence_path,str)#array of strings encoding pairing types for corresponding beads on the separate chromosomes.
@@ -146,18 +151,46 @@ print("Making matrix")
 
 Lambda = zeros([N+N,N+N])
 
-# Add loops and links without using delta functions
-#square loop
-if loop == "True":
-    for i in range(250,251+M):
-        for j in range(750,751+M):
+# [   0.,  417.,  833., 1250., 1667., 2083., 2500.]
+# [2500., 2917., 3333., 3750., 4167., 4583., 5000.]
+
+# Last four boolean input parameters decide whether
+# 1 there is a loop in chromosome 0
+# 2 there is a loop in chromosome 1 in a different place
+# 3 there is a loop in chromosome 0 and in the analogous place in chromosome 1
+# 4 there is a link between chromosomes 0 and 1
+# All four of these will be in different places in the Hi-C map.
+
+
+#square loop on paternal chromosome
+if chr0_loop == 'True':
+    for i in range(417,417+M+1):
+        for j in range(833,833+M+1):
             Lambda[i,j] += loop_strength
             Lambda[j,i] += loop_strength
 
-#square link
-if link == "True":
-    for i in range(1250,1251+M):
-        for j in range(750,751+M):
+#square loop on maternal chromosome
+if chr1_loop == 'True':
+    for i in range(3333,3333+M+1):
+        for j in range(3750,3750+M+1):
+            Lambda[i,j] += loop_strength
+            Lambda[j,i] += loop_strength
+            
+#two square loops
+if chr0_chr1_loops == 'True':
+    for i in range(1250,1250+M+1):
+        for j in range(1667,1667+M+1):
+            Lambda[i,j] += loop_strength
+            Lambda[j,i] += loop_strength
+    for i in range(3750,3750+M+1):
+        for j in range(4167,4167+M+1):
+            Lambda[i,j] += loop_strength
+            Lambda[j,i] += loop_strength
+
+#square link between maternal and paternal chromosomes
+if link == 'True':
+    for i in range(1667,1667+M+1):
+        for j in range(2083,2083+M+1):
             Lambda[N+i,j] += loop_strength
             Lambda[j,N+i] += loop_strength # the matrix needs to be symmetric otherwise Ailun's and my chromosome dynamics module will complain
 
