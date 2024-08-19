@@ -161,36 +161,41 @@ Lambda = zeros([N+N,N+N])
 # 4 there is a link between chromosomes 0 and 1
 # All four of these will be in different places in the Hi-C map.
 
+# Loop in the loose region:
+#for i in range(1125, 1125+M):
+#    for j in range(1375, 1375+M):
+#        Lambda[i,j] += loop_strength
+#        Lambda[j,i] += loop_strength
 
-#square loop on paternal chromosome
+# square loop on paternal chromosome
 if chr0_loop == 'True':
-    for i in range(417,417+M+1):
-        for j in range(833,833+M+1):
+    for i in range(417,417+M):
+        for j in range(833,833+M):
             Lambda[i,j] += loop_strength
             Lambda[j,i] += loop_strength
 
-#square loop on maternal chromosome
+# square loop on maternal chromosome
 if chr1_loop == 'True':
-    for i in range(3333,3333+M+1):
-        for j in range(3750,3750+M+1):
+    for i in range(3333,3333+M):
+        for j in range(3750,3750+M):
             Lambda[i,j] += loop_strength
             Lambda[j,i] += loop_strength
             
-#two square loops
+# two square loops
 if chr0_chr1_loops == 'True':
-    for i in range(1250,1250+M+1):
-        for j in range(1667,1667+M+1):
+    for i in range(1250,1250+M):
+        for j in range(1667,1667+M):
             Lambda[i,j] += loop_strength
             Lambda[j,i] += loop_strength
-    for i in range(3750,3750+M+1):
-        for j in range(4167,4167+M+1):
+    for i in range(3750,3750+M):
+        for j in range(4167,4167+M):
             Lambda[i,j] += loop_strength
             Lambda[j,i] += loop_strength
 
-#square link between maternal and paternal chromosomes
+# square link between maternal and paternal chromosomes
 if link == 'True':
-    for i in range(1667,1667+M+1):
-        for j in range(2083,2083+M+1):
+    for i in range(1667,1667+M):
+        for j in range(2083,2083+M):
             Lambda[N+i,j] += loop_strength
             Lambda[j,N+i] += loop_strength # the matrix needs to be symmetric otherwise Ailun's and my chromosome dynamics module will complain
 
