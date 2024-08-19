@@ -1,7 +1,7 @@
 from hicTools import *
 
-simA = 379 # first simulation number
-simB = 388 # last simulation number
+simA = 411 # first simulation number
+simB = 412 # last simulation number
 
 path = '/work/dipierrolab/douglas/final_Hi-C_maps/' # path to Hi-C map .txt storage
 path2 = '/home/white.do/DiPierroLab_Douglas/1_make_sequences/' # path to AB type sequence storage
@@ -11,8 +11,10 @@ typesPlist = [f'ABAB_random_offset_{i}' for i in range(1,11)]
 typesMlist = [f'ABAB_random_offset_{i}' for i in range(1,11)]
 
 i = 0 #keeps track of which sequence name to use
-for directory_number in range(379,389): # Make directory numbers consistent with the sequence name lists above. Otherwise the output is 
+for directory_number in range(simA,simB+1): # Make directory numbers consistent with the sequence name lists above. Otherwise the output is faulty. 
     filename = "Hi-C_directory_"+str(directory_number)+".txt"
+
+    print(directory_number)
 
     typesP = typesPlist[i]
     typesM = typesMlist[i]

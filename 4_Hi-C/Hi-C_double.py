@@ -6,6 +6,7 @@ sys.path.append('/home/white.do/DiPierroLab_Douglas/4_Hi-C')
 from CndbToolsDouglas import cndbTools
 import numpy
 import datetime
+
 now = datetime.datetime.now()
 print("Start Hi-C: ")
 print(str(now))
@@ -15,25 +16,24 @@ parser = argparse.ArgumentParser()
 parser.add_argument('cndb_file_0_name',metavar='t0', type=str, help='path to cndb trajectory of first molecule')
 parser.add_argument('cndb_file_1_name',metavar='t1', type=str, help='path to cndb trajectory of second molecule')
 parser.add_argument('output_file_name',metavar='o', type=str)
-parser.add_argument('frameIncrement',metavar='inc',type=int)
 parser.add_argument('first_frame',metavar='ff', type=int)
+parser.add_argument('last_frame',metavar='lf', type=int)
+parser.add_argument('frameIncrement',metavar='inc',type=int)
+
 args = parser.parse_args()
 
 traj_0 = args.cndb_file_0_name # file name for cndb trajectory of first molecule
 traj_1 = args.cndb_file_1_name # file name for cndb trajectory of second molecule
-
-filename = args.output_file_name # name of output file (extension will be .txt)
-
-frameIncrement = args.frameIncrement # step size; set to 1 if you want all frames
-
+filename = args.output_file_name
 first = args.first_frame
+last = args.last_frame
+frameIncrement = args.frameIncrement
 
 def cndb_to_txt_block(string1, string2):# e.g.  r'./traj_0.cndb'
     tool = cndbTools()
     tool.load(string1,string2)
-    last = None # choose None to include all
-    xyzs1 = tool.xyz1(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])
-    xyzs2 = tool.xyz2(frames=[first,last,frameIncrement],beadSelection='all',XYZ=[0,1,2])
+    xyzs1 = tool.xyz1(frames=[first,last,frameIncrement], beadSelection='all',XYZ=[0,1,2])
+    xyzs2 = tool.xyz2(frames=[first,last,frameIncrement], beadSelection='all',XYZ=[0,1,2])
     # rc MiChroM 3.22 NuChroM 1.79 width parameter for the sigmoid f
     # mu MiChroM 1.78 NuChroM 3.43 cutoff parameter for the sigmoid f
     output_matrix = tool.traj2HiC12(xyzs1, xyzs2, mu=3.22, rc=1.78) # Hi-C map in dense matrix form
