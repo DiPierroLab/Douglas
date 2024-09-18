@@ -12,7 +12,7 @@ parser.add_argument('mat_type_sequence',metavar='mat', type=str, help='maternal 
 parser.add_argument('AA',metavar='AA', type=float, help='AA interaction strength original_AA/2=-0.134)')
 parser.add_argument('BB',metavar='BB', type=float, help='BB interaction strength original_BB/2=-0.171)')
 
-# gamma(d)= -C * exp(-d/D)
+# gamma(d)= -C * exp(-d/D) 
 parser.add_argument('pairing_type_sequence_name',metavar='pt', type=str, help='')
 parser.add_argument('C_cis',metavar='C_cis', type=float, help='energy scale for ideal chromosome gamma_cis(d)= -C_cis * exp(-d/D_cis) ')
 parser.add_argument('D_cis',metavar='D_cis', type=float, help='characteristic decay genomic distance for ideal chromosome gamma_cis(d)= -C_cis * exp(-d/D_cis) ')
