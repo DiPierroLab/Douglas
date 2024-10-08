@@ -7,7 +7,7 @@ I used Python 3.8.13.
 conda create --name simulation --file ./requirements_conda.txt
 'simulation' is the environment name. If you change it, you will also need to change it in the submission scripts.
 
-Next, adjust the paths in the .py files.
+3. adjust the paths in the .py files.
 
 The codes are written to be ran on a supercomputer using slurm.
 
