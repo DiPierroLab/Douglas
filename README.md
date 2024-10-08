@@ -29,8 +29,6 @@ We seek to sample the canonical ensemble for two interacting polymer chains with
 4. Make Hi-C maps for each experiment.
      Start by making a Hi-C map for each simulation. Do this by running run_N_Hi-C.bash, which modifies the submission script submit_Hi-C.bash to submit one copy of Hi-C_double.py (double because there are two chromosomes) for each simulation copy that you ran in step 3.
      After individual Hi-C maps for each simulation are finished, average them using Hi-C_adder.py.
-     Convert the resulting Hi-C_directory_N.txt file into a .hic file by running run_N_dense_to_hic.bash, which submits submit_dense_to_hic.bash. 
-     Open the .hic file in the juicebox program by aidenlab https://aidenlab.org/software.html to render the Hi-C map as a .pdf file.
 
 Optional (as is pretty much everything else in life)
 
