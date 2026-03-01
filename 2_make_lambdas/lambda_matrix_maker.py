@@ -56,8 +56,7 @@ link = args.link
 # Paths
 
 #path to the sequences of chromatin types and pairing types
-seqPath = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"# on local machine
-#seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"# on discovery cluster
+seqPath = "../1_make_sequences/sequences/"
 
 savePath = "/Users/douglas/Documents/Features_Transfer/store_lambdas/" # on local machine
 #savePath = '/work/dipierrolab/douglas/lambdas/' # on discovery cluster

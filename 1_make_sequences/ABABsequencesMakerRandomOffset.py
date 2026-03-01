@@ -2,7 +2,7 @@
 
 from random import randrange
 
-path = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"
+path = "./sequences"
 
 for n in range(1,11):
     file = open(path+f"chr_ABAB_random_offset_{n}_2500_beads.txt","w")

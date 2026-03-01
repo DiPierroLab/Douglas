@@ -1,5 +1,5 @@
 # Make a sequence of TTTTTTLLLLTTTTTTT where the middle 100 lines are "L"
-path = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"
+path = "./sequences/"
 file = open(path+'chr_chr_TTL92TT_2500_2500_beads.txt',"w")
 
 for i in range(1,1205):

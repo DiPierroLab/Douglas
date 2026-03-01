@@ -1,2 +1,0 @@
-sbatch submit_pdb_combiner_vmd_0.bash
-sbatch submit_pdb_combiner_vmd_1.bash

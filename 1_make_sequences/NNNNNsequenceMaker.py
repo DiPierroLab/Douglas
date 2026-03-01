@@ -1,4 +1,4 @@
-path = "/Users/douglas/Documents/Features Transfer/sequences/store sequences/"
+path = "./sequences/"
 file = open(path+'chr_chr_NNNNN_2500_2500_beads.txt',"w")
 
 for i in range(1,2501):

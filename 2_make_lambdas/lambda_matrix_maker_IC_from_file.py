@@ -40,8 +40,7 @@ gammas_path = 'gamma_files/' # on local machine
 #gammas_path = '/home/white.do/DiPierroLab_Douglas/2_make_lambdas/gamma_files/' # on discovery cluster
 
 #path to the sequences of chromatin type and pairing type
-seqPath = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"# on local machine
-#seqPath = "/home/white.do/DiPierroLab_Douglas/1_make_sequences/"# on discovery cluster
+seqPath = "../1_make_sequences/sequences/"
 
 savePath = "/Users/douglas/Documents/Features_Transfer/store_lambdas/" # on local machine
 #savePath = '/work/dipierrolab/douglas/lambdas/' # on discovery cluster

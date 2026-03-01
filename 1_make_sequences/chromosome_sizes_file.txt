@@ -1,2 +1,0 @@
-paternal_chromosome   2500
-maternal_chromosome   2500

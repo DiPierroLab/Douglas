@@ -1,6 +1,6 @@
 from random import random
 
-path = "/Users/douglas/Documents/DiPierroLab_Douglas/1_make_sequences/"
+path = "./sequences/"
 file = open(path+"chr_random2_2500_beads.txt","w")
 
 state = True #True when the next locus will be A; false when the next locus will be B.
